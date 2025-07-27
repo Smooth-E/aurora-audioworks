@@ -5,11 +5,13 @@ import time
 import os
 import shutil
 import subprocess
+import tarfile
 from pathlib import Path
 
 # POETASTER
 import sys
 sys.path.append('/usr/share/moe.smoothie.audioworks/lib/')
+sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 1)
 
 
 # check if pydub is installed
@@ -22,12 +24,25 @@ from pydub import effects
 from pydub.utils import mediainfo
 
 
-ffmpeg_path = "/usr/bin/moe.smoothie.audioworks.d/ffmpeg"
+ffmpeg_folder = os.path.expanduser("~") + "/.cache/moe.smoothie/audioworks/"
+ffmpeg_path = ffmpeg_folder + "ffmpeg"
+ffprobe_path = ffmpeg_folder + "ffprobe"
+ffmpeg_tar = "/usr/share/moe.smoothie.audioworks/bin/ffmpeg.tar"
+
+
+# https://forum.sailfishos.org/t/qprocess-and-sailjail/11873/16
+def prepare_ffmpeg():
+    print("ffmpeg_folder: " + ffmpeg_folder)
+    with tarfile.open(ffmpeg_tar, "r") as file:
+        file.extractall(ffmpeg_folder)
+    os.chmod(ffmpeg_path, 0o744)
+    os.chmod(ffprobe_path, 0o744)
+
 
 # Functions for file operations
 # #######################################################################################
 
-def getHomePath ():
+def getHomePath():
     homeDir = str(Path.home())
     pyotherside.send('homePathFolder', homeDir )
 

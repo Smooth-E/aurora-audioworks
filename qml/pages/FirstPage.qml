@@ -58,13 +58,14 @@ Page {
         if(debug) console.debug(tempAudioFolderPath)
         py.getHomePath()
     }
+
     Timer {
         id: idTimerPlay
         running: false
         repeat: true
         //interval: ?? defined by audio file length and screen pixel, (not possible for intervalls < 20ms !!!)
-        onTriggered:
 
+        onTriggered: {
             // case A = move only slider in zoom window (idMarkerAB)
             if ( ( (idMarkerAB.x + handleSize/2) < idWaveformZoom.width/2) || ((idMarkerRegion.x + idMarkerRegion.width) >= idWaveformOverview.width ) ) {
                 //console.log("case A")
@@ -83,6 +84,7 @@ Page {
                 }
                 idImageWaveformZoom.x = idImageWaveformZoom.x - ( 1 * minIntervallPxFaktor )
             }
+        }
     }
 
     Timer {
@@ -137,9 +139,17 @@ Page {
 
     Python {
         id: py
+
         Component.onCompleted: {
             addImportPath(Qt.resolvedUrl('../py'));
             importModule('audiox', function () {});
+
+            console.log("calling audiox.prepare_ffmpeg")
+            call("audiox.prepare_ffmpeg", {})
+
+            setHandler("log", function(message) {
+                console.log(message)
+            })
 
             // Handlers do something to QML whith received Infos from Pythonfile (=pyotherside.send)
             setHandler('homePathFolder', function( homeDir ) {

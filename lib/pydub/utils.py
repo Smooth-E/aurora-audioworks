@@ -161,14 +161,15 @@ def get_encoder_name():
     """
     Return enconder default application for system, either avconv or ffmpeg
     """
-    if which("avconv"):
-        return "avconv"
-    elif which("ffmpeg"):
-        return "ffmpeg"
-    else:
-        # should raise exception
-        warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
-        return "ffmpeg"
+    #    if which("avconv"):
+    #        return "avconv"
+    #    elif which("ffmpeg"):
+    #        return "ffmpeg"
+    #    else:
+    #        # should raise exception
+    #        warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+    #        return "ffmpeg"
+    return os.path.expanduser("~") + "/.cache/moe.smoothie/audioworks/ffmpeg"
 
 
 def get_player_name():
@@ -189,14 +190,15 @@ def get_prober_name():
     """
     Return probe application, either avconv or ffmpeg
     """
-    if which("avprobe"):
-        return "avprobe"
-    elif which("ffprobe"):
-        return "ffprobe"
-    else:
-        # should raise exception
-        warn("Couldn't find ffprobe or avprobe - defaulting to ffprobe, but may not work", RuntimeWarning)
-        return "ffprobe"
+    #    if which("avprobe"):
+    #        return "avprobe"
+    #    elif which("ffprobe"):
+    #        return "ffprobe"
+    #    else:
+    #        # should raise exception
+    #        warn("Couldn't find ffprobe or avprobe - defaulting to ffprobe, but may not work", RuntimeWarning)
+    #        return "ffprobe"
+    return os.path.expanduser("~") + "/.cache/moe.smoothie/audioworks/ffprobe"
 
 
 def fsdecode(filename):
@@ -271,6 +273,7 @@ def mediainfo_json(filepath, read_ahead_limit=-1):
             file.close()
 
     command = [prober, '-of', 'json'] + command_args
+    print("res = " + str(command))
     res = Popen(command, stdin=stdin_parameter, stdout=PIPE, stderr=PIPE)
     output, stderr = res.communicate(input=stdin_data)
     output = output.decode("utf-8", 'ignore')

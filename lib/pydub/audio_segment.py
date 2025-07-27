@@ -714,7 +714,7 @@ class AudioSegment(object):
             stdin_parameter = None
             stdin_data = None
         else:
-            if cls.converter == 'ffmpeg':
+            if cls.converter.endswith('ffmpeg'):
                 conversion_command += ["-read_ahead_limit", str(read_ahead_limit),
                                        "-i", "cache:pipe:0"]
             else:

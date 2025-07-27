@@ -33,12 +33,12 @@ HEADERS +=
 
 # include precompiled static library according to architecture
 equals(QT_ARCH, arm64): {
-  ffmpeg_static.files = lib/ffmpeg/arm64/ffmpeg
+  ffmpeg_static.files = lib/ffmpeg/arm64/ffmpeg.tar
 }
 equals(QT_ARCH, x86_64): {
-  ffmpeg_static.files = lib/ffmpeg/x86_64/ffmpeg
+  ffmpeg_static.files = lib/ffmpeg/x86_64/ffmpeg.tar
 }
-ffmpeg_static.path = /usr/bin/moe.smoothie.audioworks.d/
+ffmpeg_static.path = /usr/share/moe.smoothie.audioworks/bin
 INSTALLS += ffmpeg_static
 
 DISTFILES += lib/pydub \
