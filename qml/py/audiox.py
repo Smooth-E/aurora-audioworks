@@ -21,13 +21,8 @@ from pydub import AudioSegment
 from pydub import effects
 from pydub.utils import mediainfo
 
-# check if LAME is manually installed by user
-# this is not allowed in harbour
-#retval = subprocess.call(["which", "lame"])
-#if retval != 0:
-#    pyotherside.send('warningLameNotAvailable', )
 
-
+ffmpeg_path = "/usr/bin/moe.smoothie.audioworks.d/ffmpeg"
 
 # Functions for file operations
 # #######################################################################################
@@ -35,6 +30,7 @@ from pydub.utils import mediainfo
 def getHomePath ():
     homeDir = str(Path.home())
     pyotherside.send('homePathFolder', homeDir )
+
 
 def createTmpAndSaveFolder ( tempAudioFolderPath, saveAudioFolderPath ):
     # not allowed
@@ -47,11 +43,13 @@ def createTmpAndSaveFolder ( tempAudioFolderPath, saveAudioFolderPath ):
         os.makedirs( "/"+saveAudioFolderPath )
         pyotherside.send('folderExistence', )
 
+
 def deleteAllTMPFunction ( tempAudioFolderPath ):
     for i in os.listdir( "/"+tempAudioFolderPath ) :
         if (i.find(".tmp") != -1):
             os.remove ( "/"+tempAudioFolderPath+i )
             pyotherside.send('tempFilesDeleted', i )
+
 
 def deleteLastTmpFunction ( lastTmpAudio2delete, lastTmpImage2delete ):
     if ".tmp" in lastTmpAudio2delete :
@@ -60,17 +58,21 @@ def deleteLastTmpFunction ( lastTmpAudio2delete, lastTmpImage2delete ):
         os.remove ( lastTmpImage2delete )
         pyotherside.send('deleteLastTmp', )
 
+
 def deleteFile ( inputPathPy ):
     os.remove ( "/" + inputPathPy )
     pyotherside.send('deletedFile', )
+
 
 def renameOriginal ( inputPathPy, newFilePath, newFileName, newFileType ) :
     os.rename( "/" + inputPathPy, "/" + newFilePath )
     pyotherside.send('finishedSavingRenaming', newFilePath, newFileName, newFileType)
 
+
 def getFileSizeFunction ( inputPathPy ):
     estimatedSize = os.stat( "/" + inputPathPy ).st_size
     pyotherside.send( 'estimatedFileSize', estimatedSize )
+
 
 def getAudioTagsFunction ( inputPathPy ):
     allTags = mediainfo( "/"+inputPathPy ).get('TAG',None)
@@ -97,10 +99,24 @@ def getAudioTagsFunction ( inputPathPy ):
     pyotherside.send( 'audioTags', title, artist, album, date, track )
 
 
-def saveFile ( inputPathPy, savePath, tempAudioFolderPath, tempAudioType, newFileName, newFileType, mp3Bitrate, mp3CompressBitrateType, tagTitle, tagArtist, tagAlbum, tagDate, tagTrack ):
+def saveFile (
+    inputPathPy,
+    savePath,
+    tempAudioFolderPath,
+    tempAudioType,
+    newFileName,
+    newFileType,
+    mp3Bitrate,
+    mp3CompressBitrateType,
+    tagTitle,
+    tagArtist,
+    tagAlbum,
+    tagDate,
+    tagTrack
+):
     # mp3 only from cli
     # these methods are from pydub since they don't run as is
-    conversion_command = ['/usr/bin/ffmpeg' , "-vn"] # drop video
+    conversion_command = [ffmpeg_path , "-vn"] # drop video
     conversion_command.extend ([ "-i", inputPathPy ])
     conversion_command.extend([ "-f", newFileType ])
     conversion_command.extend( ['-metadata', "title="+str(tagTitle) ])
@@ -114,8 +130,18 @@ def saveFile ( inputPathPy, savePath, tempAudioFolderPath, tempAudioType, newFil
         sound = AudioSegment.from_file( inputPathPy )
         outputPathTmp = tempAudioFolderPath + "audioWAV" + ".tmp" + "." + tempAudioType
         sound.export( outputPathTmp, format = tempAudioType )
-        subprocess.run([ "/usr/bin/lame", mp3CompressBitrateType, "--tt", str(tagTitle), "--ta", str(tagArtist), "--tl", str(tagAlbum), "--ty", str(tagDate), "--tn", str(tagTrack), "/"+outputPathTmp, "/"+savePath ])
-
+        
+        subprocess.run([
+            "/usr/bin/lame",
+            mp3CompressBitrateType,
+            "--tt", str(tagTitle), 
+            "--ta", str(tagArtist),
+            "--tl", str(tagAlbum),
+            "--ty", str(tagDate),
+            "--tn", str(tagTrack), 
+            "/" + outputPathTmp,
+            "/" + savePath
+        ])
     elif "ogg" in newFileType :
         #sound = AudioSegment.from_file( inputPathPy )
         conversion_command.extend(["-acodec", "libvorbis"])
@@ -162,7 +188,6 @@ def to_wav(in_path: str, out_path: str = None, sample_rate: int = 16000) -> str:
     return out_path
 
 
-
 # Function for waveform creation
 # #######################################################################################
 # This one from video works
@@ -171,7 +196,7 @@ def to_wav(in_path: str, out_path: str = None, sample_rate: int = 16000) -> str:
 def createWaveformImage ( inputPathPy, outputWaveformPath, waveformColor, waveformPixelLength, waveformPixelHeight, stretch ):
     waveformPixelLength = str(int(waveformPixelLength))
     waveformPixelHeight = str(int(waveformPixelHeight))
-    subprocess.run([ "/usr/bin/ffmpeg", "-hide_banner", "-y", "-i", "/"+inputPathPy, "-filter_complex", stretch+"showwavespic=s="+waveformPixelLength+"x"+waveformPixelHeight+":colors="+waveformColor, "-frames:v", "1", "/"+outputWaveformPath ])
+    subprocess.run([ ffmpeg_path, "-hide_banner", "-y", "-i", "/"+inputPathPy, "-filter_complex", stretch+"showwavespic=s="+waveformPixelLength+"x"+waveformPixelHeight+":colors="+waveformColor, "-frames:v", "1", "/"+outputWaveformPath ])
     sound = AudioSegment.from_file(inputPathPy)
     audioLengthMilliseconds = len(sound)
     pyotherside.send('loadImageWaveform', outputWaveformPath, audioLengthMilliseconds )
@@ -194,6 +219,7 @@ def copyToClipboard ( inputPathPy, fromPosMillisecond, toPosMillisecond ):
     globClipboard = sound[ int(fromPosMillisecond) : int(toPosMillisecond) ]
     pyotherside.send('copiedToClipboard', )
 
+
 def pasteFromClipboard ( inputPathPy, outputPathPy, tempAudioType, pasteHere, pasteType ):
     global globClipboard
     sound = AudioSegment.from_file( inputPathPy )
@@ -214,6 +240,7 @@ def pasteFromClipboard ( inputPathPy, outputPathPy, tempAudioType, pasteHere, pa
     extract.export( outputPathPy, format = tempAudioType )
     pyotherside.send('loadTempAudio', outputPathPy )
 
+
 def cutRemove ( inputPathPy, outputPathPy, tempAudioType, fromPosMillisecond, toPosMillisecond ):
     sound = AudioSegment.from_file( inputPathPy )
     extract1 = sound[ :int(fromPosMillisecond) ]
@@ -222,11 +249,13 @@ def cutRemove ( inputPathPy, outputPathPy, tempAudioType, fromPosMillisecond, to
     extract.export( outputPathPy, format = tempAudioType )
     pyotherside.send('loadTempAudio', outputPathPy )
 
+
 def cutExtract ( inputPathPy, outputPathPy, tempAudioType, fromPosMillisecond, toPosMillisecond ):
     sound = AudioSegment.from_file( inputPathPy )
     extract = sound[ int(fromPosMillisecond) : int(toPosMillisecond) ]
     extract.export( outputPathPy, format = tempAudioType )
     pyotherside.send('loadTempAudio', outputPathPy )
+
 
 def paddingSilence ( inputPathPy, outputPathPy, tempAudioType, padHere, positionSilence, durationSilence ) :
     sound = AudioSegment.from_file( inputPathPy )
@@ -242,6 +271,7 @@ def paddingSilence ( inputPathPy, outputPathPy, tempAudioType, padHere, position
     extract.export( outputPathPy, format = tempAudioType )
     pyotherside.send('loadTempAudio', outputPathPy )
 
+
 def volumeChange ( inputPathPy, outputPathPy, tempAudioType, fromPosMillisecond, toPosMillisecond, changeDB ):
     sound = AudioSegment.from_file( inputPathPy )
     extract1 = sound[ :int(fromPosMillisecond) ]
@@ -254,6 +284,7 @@ def volumeChange ( inputPathPy, outputPathPy, tempAudioType, fromPosMillisecond,
         extract = extract1 + extract3
     extract.export( outputPathPy, format = tempAudioType )
     pyotherside.send('loadTempAudio', outputPathPy )
+
 
 def volumeFadeIn ( inputPathPy, outputPathPy, tempAudioType, fromPosMillisecond, toPosMillisecond ):
     sound = AudioSegment.from_file( inputPathPy )
@@ -268,6 +299,7 @@ def volumeFadeIn ( inputPathPy, outputPathPy, tempAudioType, fromPosMillisecond,
     extract.export( outputPathPy, format = tempAudioType )
     pyotherside.send('loadTempAudio', outputPathPy )
 
+
 def volumeFadeOut ( inputPathPy, outputPathPy, tempAudioType, fromPosMillisecond, toPosMillisecond ):
     sound = AudioSegment.from_file( inputPathPy )
     extract1 = sound[ :int(fromPosMillisecond) ]
@@ -280,6 +312,7 @@ def volumeFadeOut ( inputPathPy, outputPathPy, tempAudioType, fromPosMillisecond
         extract = extract1 + extract3
     extract.export( outputPathPy, format = tempAudioType )
     pyotherside.send('loadTempAudio', outputPathPy )
+
 
 def speedChange ( inputPathPy, outputPathPy, tempAudioType, fromPosMillisecond, toPosMillisecond, factorSpeed, keepPitch ):
     def speed_change_and_pitch(sound, speed):
@@ -300,6 +333,7 @@ def speedChange ( inputPathPy, outputPathPy, tempAudioType, fromPosMillisecond, 
     extract.export( outputPathPy, format = tempAudioType )
     pyotherside.send('loadTempAudio', outputPathPy )
 
+
 def reverseAudio ( inputPathPy, outputPathPy, tempAudioType, fromPosMillisecond, toPosMillisecond ):
     sound = AudioSegment.from_file( inputPathPy )
     extract1 = sound[ :int(fromPosMillisecond) ]
@@ -313,11 +347,13 @@ def reverseAudio ( inputPathPy, outputPathPy, tempAudioType, fromPosMillisecond,
     extract.export( outputPathPy, format = tempAudioType )
     pyotherside.send('loadTempAudio', outputPathPy )
 
+
 def lowPassFilter ( inputPathPy, outputPathPy, tempAudioType, filterFrequency, filterOrder ):
     sound = AudioSegment.from_file( inputPathPy )
     extract = sound.low_pass_filter( int(filterFrequency) )
     extract.export( outputPathPy, format = tempAudioType )
     pyotherside.send('loadTempAudio', outputPathPy )
+
 
 def highPassFilter ( inputPathPy, outputPathPy, tempAudioType, filterFrequency, filterOrder ):
     sound = AudioSegment.from_file( inputPathPy )
@@ -326,46 +362,71 @@ def highPassFilter ( inputPathPy, outputPathPy, tempAudioType, filterFrequency, 
     pyotherside.send('loadTempAudio', outputPathPy )
 
 
-
-
 # Functions for audio manipulation, disregarding markers
 # #######################################################################################
 
+
 def denoiseAudio ( inputPathPy, outputPathPy, tempAudioType, filterType ):
-    subprocess.run([ "/usr/bin/ffmpeg", "-y", "-i", "/"+inputPathPy, "-af", filterType, "/"+outputPathPy, "-hide_banner" ])
+    subprocess.run([ ffmpeg_path, "-y", "-i", "/"+inputPathPy, "-af", filterType, "/"+outputPathPy, "-hide_banner" ])
     pyotherside.send('loadTempAudio', outputPathPy )
 
-def trimSilence ( inputPathPy, outputPathPy, tempAudioType, fromPosMillisecond, toPosMillisecond, breakMS, breakDB, breakPadding ):
+
+def trimSilence (
+    inputPathPy,
+    outputPathPy,
+    tempAudioType,
+    fromPosMillisecond,
+    toPosMillisecond,
+    breakMS,
+    breakDB,
+    breakPadding
+):
     sound = AudioSegment.from_file( inputPathPy )
     extract = sound.strip_silence( int(breakMS), int(breakDB), int(breakPadding) )
     extract.export( outputPathPy, format = tempAudioType )
     pyotherside.send('loadTempAudio', outputPathPy )
 
-def echoEffect ( inputPathPy, outputPathPy, tempAudioType, in_gain, out_gain, delays, decays ):
-    subprocess.run([ "/usr/bin/ffmpeg", "-y", "-i", "/"+inputPathPy, "-af", "aecho=" + str(in_gain) + ":" + str(out_gain) + ":" + str(delays) + ":" + str(decays), "/"+outputPathPy, "-hide_banner" ])
+
+def echoEffect (inputPathPy, outputPathPy, tempAudioType, in_gain, out_gain, delays, decays):
+    subprocess.run([
+        ffmpeg_path, 
+        "-y", 
+        "-i", "/" + inputPathPy,
+        "-af", "aecho=" + str(in_gain) + ":" + str(out_gain) + ":" + str(delays) + ":" + str(decays),
+        "/" + outputPathPy,
+        "-hide_banner"
+    ])
     pyotherside.send('loadTempAudio', outputPathPy )
+
 
 def flangerEffect ( inputPathPy, outputPathPy, tempAudioType, speed, depth, phase, delay, regen ):
-    subprocess.run([ "/usr/bin/ffmpeg", "-y", "-i", "/"+inputPathPy, "-af", "flanger=speed=" + str(speed) + ":depth=" + str(depth) + ":phase=" + str(phase) + ":delay=" + str(delay) + ":regen=" + str(regen), "/"+outputPathPy, "-hide_banner" ])
+    subprocess.run([
+        ffmpeg_path,
+        "-y",
+        "-i", "/" + inputPathPy,
+        "-af", "flanger=speed=" + str(speed) + ":depth=" + str(depth) 
+               + ":phase=" + str(phase) + ":delay=" + str(delay) + ":regen=" + str(regen),
+        "/"+outputPathPy, 
+        "-hide_banner"
+    ])
     pyotherside.send('loadTempAudio', outputPathPy )
 
+
 def phaserEffect ( inputPathPy, outputPathPy, tempAudioType,in_gain, out_gain, delay, decay, speed ):
-    subprocess.run([ "/usr/bin/ffmpeg", "-y", "-i", "/"+inputPathPy, "-af", "aphaser=speed=" + str(speed) + ":delay=" + str(delay) + ":decay=" + str(decay) + ":in_gain=" + str(in_gain) + ":out_gain=" + str(out_gain), "/"+outputPathPy, "-hide_banner" ])
+    subprocess.run([ ffmpeg_path, "-y", "-i", "/"+inputPathPy, "-af", "aphaser=speed=" + str(speed) + ":delay=" + str(delay) + ":decay=" + str(decay) + ":in_gain=" + str(in_gain) + ":out_gain=" + str(out_gain), "/"+outputPathPy, "-hide_banner" ])
     pyotherside.send('loadTempAudio', outputPathPy )
+
 
 def chorusEffect ( inputPathPy, outputPathPy, tempAudioType, delay, decay, speed, depth ):
     delays = str(format(delay,'.0f')) + "|" + str(format(delay + 10,'.0f'))
     decays = str(format(decay,'.2f')) + "|" + str(format(decay +.2,'.2f'))
     speeds = str(format(speed,'.2f')) + "|" + str(format(speed +.2,'.2f'))
     depths = str(format(depth,'.2f')) + "|" + str(format(depth +.2,'.2f'))
-    subprocess.run([ "/usr/bin/ffmpeg", "-y", "-i", "/"+inputPathPy, "-af", "chorus=0.5:0.8:" + str(delays) + ":" + str(decays) + ":" + str(speeds) + ":" + str(depths), "/"+outputPathPy, "-hide_banner" ])
+    subprocess.run([ ffmpeg_path, "-y", "-i", "/"+inputPathPy, "-af", "chorus=0.5:0.8:" + str(delays) + ":" + str(decays) + ":" + str(speeds) + ":" + str(depths), "/"+outputPathPy, "-hide_banner" ])
     pyotherside.send('loadTempAudio', outputPathPy )
+
 
 # Replace the pydub version which is flake
 def slowDown ( inputPathPy, outputPathPy, tempAudioType, tempo ):
-    subprocess.run([ "/usr/bin/ffmpeg", "-y", "-i", "/"+inputPathPy, "-af", "atempo=" + str(tempo), "/"+outputPathPy, "-hide_banner" ])
+    subprocess.run([ ffmpeg_path, "-y", "-i", "/"+inputPathPy, "-af", "atempo=" + str(tempo), "/"+outputPathPy, "-hide_banner" ])
     pyotherside.send('loadTempAudio', outputPathPy )
-
-
-
-#pyotherside.send('debugPythonLogs', i)

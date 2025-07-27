@@ -98,9 +98,11 @@ Page {
 
     Component {
        id: filePickerPage
+
        FilePickerPage {
            title: qsTr("Select audio file")
            nameFilters: [ '*.wav', '*.mp3', '*.flac', '*.ogg', '*.aac', '*.mp4' ]
+
            onSelectedContentPropertiesChanged: {
                origAudioFilePath = selectedContentProperties.filePath.toString()
                origAudioFileName = selectedContentProperties.fileName
@@ -1648,9 +1650,10 @@ Page {
     }
 
 
-    function autostart_getAudiolengthQML( pathTo ) {
+    function autostart_getAudiolengthQML(pathTo) {
+        console.log("autostart_getAudiolengthQML: " + pathTo)
         idAudioPlayer.volume = 0
-        idAudioPlayer.source = pathTo //origAudioFilePath
+        idAudioPlayer.source = pathTo
         idAudioPlayer.play()
         idTimerPreloadAudioOnce.running = true
     }
