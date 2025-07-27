@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=moe.smoothie.audioworks
+Exec=sailfish-qml moe.smoothie.audioworks %u -platform wayland
+Name=Audioworks
+
+[X-Application]
+OrganizationName=moe.smoothie
+ApplicationName=audioworks
+Permissions=Camera;Audio;Microphone;MediaIndexing;Music;RemovableMedia;UserDirs

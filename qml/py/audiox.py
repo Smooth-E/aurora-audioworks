@@ -9,7 +9,7 @@ from pathlib import Path
 
 # POETASTER
 import sys
-sys.path.append('/usr/share/harbour-audiocut/lib/')
+sys.path.append('/usr/share/moe.smoothie.audioworks/lib/')
 
 
 # check if pydub is installed
