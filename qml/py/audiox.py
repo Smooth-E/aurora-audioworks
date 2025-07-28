@@ -24,19 +24,37 @@ from pydub import effects
 from pydub.utils import mediainfo
 
 
-ffmpeg_folder = os.path.expanduser("~") + "/.cache/moe.smoothie/audioworks/"
-ffmpeg_path = ffmpeg_folder + "ffmpeg"
-ffprobe_path = ffmpeg_folder + "ffprobe"
-ffmpeg_tar = "/usr/share/moe.smoothie.audioworks/bin/ffmpeg.tar"
+bin_path = "/usr/share/moe.smoothie.audioworks/bin/"
+cache_path = os.path.expanduser("~") + "/.cache/moe.smoothie/audioworks/"
+ffmpeg_path = cache_path + "ffmpeg"
+ffprobe_path = cache_path + "ffprobe"
+ffmpeg_tar = bin_path + "ffmpeg.tar"
+lame_tar = bin_path + "lame.tar"
+lame_path = cache_path + "lame"
 
 
 # https://forum.sailfishos.org/t/qprocess-and-sailjail/11873/16
-def prepare_ffmpeg():
-    print("ffmpeg_folder: " + ffmpeg_folder)
-    with tarfile.open(ffmpeg_tar, "r") as file:
-        file.extractall(ffmpeg_folder)
+def prepare_binaries():
+    print("Preparing binaries...")
+    
+    if (os.path.isfile(ffmpeg_path) and os.path.isfile(ffprobe_path)):
+        print("Found ffmpeg binaries")
+    else:
+        with tarfile.open(ffmpeg_tar, "r") as file:
+            file.extractall(cache_path)
+            print("Extracted ffmpeg binaries")
+    
     os.chmod(ffmpeg_path, 0o744)
     os.chmod(ffprobe_path, 0o744)
+    
+    if (os.path.isfile(lame_path)):
+        print("Found lame binary")
+    else:
+        with tarfile.open(lame_tar, "r") as file:
+            file.extractall(cache_path)
+            print("Extracted lame binary")
+    
+    os.chmod(lame_path, 0o744)
 
 
 # Functions for file operations
@@ -146,8 +164,8 @@ def saveFile (
         outputPathTmp = tempAudioFolderPath + "audioWAV" + ".tmp" + "." + tempAudioType
         sound.export( outputPathTmp, format = tempAudioType )
         
-        subprocess.run([
-            "/usr/bin/lame",
+        command = [
+            lame_path,
             mp3CompressBitrateType,
             "--tt", str(tagTitle), 
             "--ta", str(tagArtist),
@@ -156,7 +174,10 @@ def saveFile (
             "--tn", str(tagTrack), 
             "/" + outputPathTmp,
             "/" + savePath
-        ])
+        ]
+        
+        print("Using lame: " + str(command))
+        subprocess.run(command)
     elif "ogg" in newFileType :
         #sound = AudioSegment.from_file( inputPathPy )
         conversion_command.extend(["-acodec", "libvorbis"])
@@ -182,6 +203,7 @@ def saveFile (
             pyotherside.send('tempFilesDeleted', i )
     pyotherside.send('fileIsSaved', )
     pyotherside.send('finishedSavingRenaming', savePath, newFileName, newFileType)
+
 
 # an example using pyav
 def to_wav(in_path: str, out_path: str = None, sample_rate: int = 16000) -> str:

@@ -144,12 +144,7 @@ Page {
             addImportPath(Qt.resolvedUrl('../py'));
             importModule('audiox', function () {});
 
-            console.log("calling audiox.prepare_ffmpeg")
-            call("audiox.prepare_ffmpeg", {})
-
-            setHandler("log", function(message) {
-                console.log(message)
-            })
+            call("audiox.prepare_binaries", {})
 
             // Handlers do something to QML whith received Infos from Pythonfile (=pyotherside.send)
             setHandler('homePathFolder', function( homeDir ) {
