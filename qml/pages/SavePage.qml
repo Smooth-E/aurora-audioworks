@@ -48,28 +48,22 @@ Page {
         else if ( (origAudioType.indexOf('mp3') !== -1) && (warningNoLAME === false) ) {
             idComboBoxFileExtension.currentIndex = 3
         }
-        /*
-        else if (origAudioType.indexOf('aac') !== -1) {
-            idComboBoxFileExtension.currentIndex = 4
-        }
-        else if (origAudioType.indexOf('wma') !== -1) {
-            idComboBoxFileExtension.currentIndex = 5
-        }
-        */
         else {
             idComboBoxFileExtension.currentIndex = 0
         }
         py.getFileSizeFunction()
 
-        if ( (origAudioType.indexOf('mp3') !== -1) || (origAudioType.indexOf('ogg') !== -1) || (origAudioType.indexOf('flac') !== -1) ) {
+        const mayHaveTags = origAudioType.indexOf('mp3') !== -1
+                            || origAudioType.indexOf('ogg') !== -1
+                            || origAudioType.indexOf('flac') !== -1
+        if (mayHaveTags) {
             py.getAudioTagsFunction()
         }
     }
 
-
-
     Python {
         id: py
+
         Component.onCompleted: {
             // Which Pythonfile will be used?
             importModule('audiox', function () {});
@@ -128,14 +122,33 @@ Page {
             var mp3CompressBitrateType = "-V2" // abr = average variable bitrate // vbr = true variable bitrate
             savePath = folderSavePath + newFileName + idComboBoxFileExtension.value.toString()
             inputPathPy = ( "/" + inputPathPy.replace(/^(file:\/{3})|(qrc:\/{2})|(http:\/{2})/,"") )
-            call("audiox.saveFile", [ inputPathPy, savePath, tempAudioFolderPath, tempAudioType, newFileName, newFileType, mp3Bitrate, mp3CompressBitrateType, tagTitle, tagArtist, tagAlbum, tagDate, tagTrack ])
+            
+            var args = [
+                        inputPathPy,
+                        savePath,
+                        tempAudioFolderPath,
+                        tempAudioType,
+                        newFileName,
+                        newFileType,
+                        mp3Bitrate,
+                        mp3CompressBitrateType,
+                        tagTitle,
+                        tagArtist,
+                        tagAlbum,
+                        tagDate,
+                        tagTrack
+                      ]
+            
+            call("audiox.saveFile", args)
         }
         function getFileSizeFunction() {
-            var sizeInputPathPy = decodeURIComponent( origAudioFilePath.replace(/^(file:\/{3})|(qrc:\/{2})|(http:\/{2})/,"") )
+            var path = origAudioFilePath.replace(/^(file:\/{3})|(qrc:\/{2})|(http:\/{2})/,"")
+            var sizeInputPathPy = decodeURIComponent(path)
             call("audiox.getFileSizeFunction", [ sizeInputPathPy ])
         }
         function getAudioTagsFunction() {
-            var sizeInputPathPy = decodeURIComponent( origAudioFilePath.replace(/^(file:\/{3})|(qrc:\/{2})|(http:\/{2})/,"") )
+            var path = origAudioFilePath.replace(/^(file:\/{3})|(qrc:\/{2})|(http:\/{2})/,"")
+            var sizeInputPathPy = decodeURIComponent(path)
             call("audiox.getAudioTagsFunction", [ sizeInputPathPy ])
         }
 
@@ -143,22 +156,20 @@ Page {
             // when an exception is raised, this error handler will be called
             console.log('python error: ' + traceback);
         }
-        onReceived: {
-            // asychronous messages from Python arrive here; done there via pyotherside.send()
-            //console.log('got message from python: ' + data);
-        }
     } // end Python
 
 
     SilicaFlickable {
         id: listView
+
         anchors.fill: parent
         contentHeight: columnSaveAs.height
-        VerticalScrollDecorator {}
 
+        VerticalScrollDecorator { }
 
         Column {
             id: columnSaveAs
+
             width: page.width
 
             PageHeader {
@@ -167,8 +178,10 @@ Page {
 
             Row {
                 width: parent.width
+
                 TextField {
                     id: idFilenameNew
+
                     label: (validatorNameOverwrite === true) ? qsTr("overwrite...") : ""
                     width: parent.width / 6 * 3.75
                     anchors.top: parent.top
@@ -176,15 +189,22 @@ Page {
                     y: Theme.paddingSmall
                     inputMethodHints: Qt.ImhNoPredictiveText
                     text: origAudioName + "_edit"
-                    EnterKey.onClicked: idFilenameNew.focus = false
-                    validator: RegExpValidator { regExp: /^[^<>'\"/;*:`#?]*$/ } // negative list
-                    onTextChanged: {
-                        checkOverwriting()
+
+                    validator: RegExpValidator {
+                        // negative list
+                        regExp: /^[^<>'\"/;*:`#?]*$/
                     }
+
+                    EnterKey.onClicked: idFilenameNew.focus = false
+                    
+                    onTextChanged: checkOverwriting()
                 }
+
                 ComboBox {
                     id: idComboBoxFileExtension
+
                     width: parent.width / 6 * 1.25
+
                     menu: ContextMenu {
                         MenuItem {
                             text: ".wav"
@@ -203,45 +223,46 @@ Page {
                             text: ".mp3"
                             font.pixelSize: Theme.fontSizeExtraSmall
                         }
-                        /*
-                        MenuItem {
-                            text: ".aac"
-                            font.pixelSize: Theme.fontSizeExtraSmall
-                        }
-                        MenuItem {
-                            text: ".wma"
-                            font.pixelSize: Theme.fontSizeExtraSmall
-                        }
-                        */
                     }
                 }
+
                 IconButton {
                     id: idSaveButton
-                    visible: (idFilenameNew.text.length > 0) ? true : false
+
+                    visible: idFilenameNew.text.length > 0
                     width: parent.width / 6
                     height: Theme.itemSizeSmall
-                    //icon.source: "image://theme/icon-m-acknowledge?"
-                    icon.source: "../symbols/icon-m-apply.svg"
-                    icon.width: Theme.iconSizeMedium
-                    icon.height: Theme.iconSizeMedium
+                    
+                    icon {
+                        source: "../symbols/icon-m-apply.svg"
+                        width: Theme.iconSizeMedium
+                        height: Theme.iconSizeMedium
+                    }
+
                     onClicked: {
                         idSaveButtonRunningIndicator.running = true
                         idSaveButton.enabled = false
                          py.saveFunction()
                     }
+
                     BusyIndicator {
                         id: idSaveButtonRunningIndicator
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
+
+                        anchors {
+                            verticalCenter: parent.verticalCenter
+                            horizontalCenter: parent.horizontalCenter
+                        }
+
                         size: BusyIndicatorSize.Medium
                     }
                 }
             } // end row save filename
 
-
             ComboBox {
                 id: idComboBoxTargetFolder
+
                 width: parent.width
+
                 menu: ContextMenu {
                     id: idCropShape
                     MenuItem {
@@ -265,35 +286,18 @@ Page {
                         font.pixelSize: Theme.fontSizeExtraSmall
                     }
                 }
-                onCurrentItemChanged: {
-                    checkOverwriting()
-                }
+
+                onCurrentItemChanged: checkOverwriting()
             }
 
             Label {
                 x: Theme.paddingLarge * 1.2
                 width: parent.width - 2*Theme.paddingLarge
                 font.pixelSize: Theme.fontSizeExtraSmall
-                text: qsTr("Source file") + ": " + origAudioFileName + "\n"
-                    + qsTr("Path") + ": " + origAudioFolderPath + "\n"
-                    + qsTr("Size") + ": " + estimatedFileSize + " kb"
-            }
-
-            Label {
-                x: Theme.paddingLarge * 1.2
-                visible: warningNoLAME === true
-                width: parent.width - 2*Theme.paddingLarge
-                font.pixelSize: Theme.fontSizeExtraSmall
-                color: Theme.errorColor
-                text: qsTr("LAME encoder for mp3 is not yet installed.")
-            }
-            Label {
-                x: Theme.paddingLarge * 1.2
-                visible: warningNoLAME === false
-                width: parent.width - 2*Theme.paddingLarge
-                font.pixelSize: Theme.fontSizeExtraSmall
-                color: Theme.errorColor
-                text: qsTr("LAME only works when started from terminal.")
+                text: qsTr("Source file: %1\nPath: %2\nSize: %2 kb")
+                      .arg(origAudioFileName)
+                      .arg(origAudioFolderPath)
+                      .arg(estimatedFileSize)
             }
 
             Item {
@@ -313,12 +317,18 @@ Page {
 
                 TextField {
                     id: idTagtextTitle
+
                     width: parent.width
-                    //height: Theme.itemSizeLarge * 1.15
                     inputMethodHints: Qt.ImhNoPredictiveText
                     text: tagTitle
+
+                    validator: RegExpValidator {
+                        // negative list
+                        regExp: /^[^<>'\"/;*:`#?]*$/
+                    }
+
                     EnterKey.onClicked: idTagtextTitle.focus = false
-                    validator: RegExpValidator { regExp: /^[^<>'\"/;*:`#?]*$/ } // negative list
+                    
                     Label {
                         anchors.top: parent.bottom
                         font.pixelSize: Theme.fontSizeExtraSmall
@@ -329,12 +339,18 @@ Page {
 
                 TextField {
                     id: idTagtextArtist
+
                     width: parent.width
-                    //height: Theme.itemSizeLarge * 1.15
                     inputMethodHints: Qt.ImhNoPredictiveText
                     text: tagArtist
+
+                    validator: RegExpValidator {
+                        // negative list
+                        regExp: /^[^<>'\"/;*:`#?]*$/
+                    }
+
                     EnterKey.onClicked: idTagtextArtist.focus = false
-                    validator: RegExpValidator { regExp: /^[^<>'\"/;*:`#?]*$/ } // negative list
+
                     Label {
                         anchors.top: parent.bottom
                         font.pixelSize: Theme.fontSizeExtraSmall
@@ -345,12 +361,18 @@ Page {
 
                 TextField {
                     id: idTagtextAlbum
+
                     width: parent.width
-                    //height: Theme.itemSizeLarge * 1.15
                     inputMethodHints: Qt.ImhNoPredictiveText
                     text: tagAlbum
+
+                    validator: RegExpValidator {
+                        // negative list
+                        regExp: /^[^<>'\"/;*:`#?]*$/
+                    }
+                    
                     EnterKey.onClicked: idTagtextAlbum.focus = false
-                    validator: RegExpValidator { regExp: /^[^<>'\"/;*:`#?]*$/ } // negative list
+
                     Label {
                         anchors.top: parent.bottom
                         font.pixelSize: Theme.fontSizeExtraSmall
@@ -368,15 +390,18 @@ Page {
 
                 TextField {
                     id: idTagtextTrack
+
                     width: parent.width / 2
-                    //height: Theme.itemSizeLarge * 1.15
                     inputMethodHints: Qt.ImhDigitsOnly
                     text: tagTrack
-                    EnterKey.onClicked: idTagtextTrack.focus = false
+                    
                     validator: IntValidator {
                         bottom: 1
                         top: 255
                     }
+
+                    EnterKey.onClicked: idTagtextTrack.focus = false
+                    
                     Label {
                         anchors.top: parent.bottom
                         font.pixelSize: Theme.fontSizeExtraSmall
@@ -387,15 +412,18 @@ Page {
 
                 TextField {
                     id: idTagtextDate
+
                     width: parent.width / 2
-                    //height: Theme.itemSizeLarge * 1.15
                     inputMethodHints: Qt.ImhDigitsOnly
                     text: tagDate
-                    EnterKey.onClicked: idTagtextDate.focus = false
+
                     validator: IntValidator {
                         bottom: 1
                         top: 9999
                     }
+
+                    EnterKey.onClicked: idTagtextDate.focus = false
+                    
                     Label {
                         anchors.top: parent.bottom
                         font.pixelSize: Theme.fontSizeExtraSmall
@@ -403,20 +431,9 @@ Page {
                         text: qsTr("Year")
                     }
                 }
-
-
             }
-
-
-
-
-
-
-
         } // end Column
-
     } // end Silica Flickable
-
 
     function checkOverwriting() {
         if (idComboBoxTargetFolder.currentIndex === 0) {
@@ -435,11 +452,8 @@ Page {
             estimatedFolder = homeDirectory + "/"
         }
 
-        if ( (estimatedFolder === origAudioFolderPath ) && (origAudioName === idFilenameNew.text) && (("."+origAudioType) === (idComboBoxFileExtension.value.toString())) ) {
-            validatorNameOverwrite = true
-        }
-        else {
-            validatorNameOverwrite = false
-        }
+        validatorNameOverwrite = estimatedFolder === origAudioFolderPath
+                                 && origAudioName === idFilenameNew.text
+                                 && ("." + origAudioType) === idComboBoxFileExtension.value.toString()
     }
 }

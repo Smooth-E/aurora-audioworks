@@ -8,24 +8,18 @@
         <translation>Om Audioworks</translation>
     </message>
     <message>
-        <source>Copyright © 2020 Tobias Planitzer</source>
-        <translation>Copyright © 2020 Tobias Planitzer</translation>
-    </message>
-    <message>
         <source>An Audio Tool</source>
         <translation>Ett ljudverktyg</translation>
     </message>
     <message>
-        <source>Audioworks is licensed under the terms</source>
-        <translation>Audioworks är licensierat under villkoren</translation>
+        <source>Copyright © 2020 Tobias Planitzer
+Copyright © 2021-2023 Mark Washeim
+Copyright © 2025 Smooth-E</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>of the GNU General Public License v3.</source>
-        <translation>för GNU General Public License v3.</translation>
-    </message>
-    <message>
-        <source> © 2021-23 Mark Washeim</source>
-        <translation type="unfinished"> © 2021 Mark Washeim {2021-22 ?} {2021-23 ?}</translation>
+        <source>Audioworks is licensed under the terms of the GNU General Public License v3.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -275,14 +269,6 @@
         <translation>Ursprunglig mapp</translation>
     </message>
     <message>
-        <source>Path</source>
-        <translation>Sökväg</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation>Storlek</translation>
-    </message>
-    <message>
         <source>Artist</source>
         <translation>Artist</translation>
     </message>
@@ -303,19 +289,13 @@
         <translation>Spår#</translation>
     </message>
     <message>
-        <source>Source file</source>
-        <translation>Källfil</translation>
-    </message>
-    <message>
         <source>Audio tags</source>
         <translation>Ljudtaggar</translation>
     </message>
     <message>
-        <source>LAME encoder for mp3 is not yet installed.</source>
-        <translation>LAME kodare för mp3 är ännu inte installerad.</translation>
-    </message>
-    <message>
-        <source>LAME only works when started from terminal.</source>
+        <source>Source file: %1
+Path: %2
+Size: %2 kb</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

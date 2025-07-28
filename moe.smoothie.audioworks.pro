@@ -27,7 +27,8 @@ CONFIG += auroraapp_i18n
 # modify the localized app name in the the .desktop file.
 TRANSLATIONS += translations/moe.smoothie.audioworks-de.ts \
                 translations/moe.smoothie.audioworks-sv.ts \
-                translations/moe.smoothie.audioworks-zh_CN.ts
+                translations/moe.smoothie.audioworks-zh_CN.ts \
+                translations/moe.smoothie.audioworks-ru.ts
 
 HEADERS +=
 

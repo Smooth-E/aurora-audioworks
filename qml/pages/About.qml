@@ -7,10 +7,12 @@ Page {
     allowedOrientations: Orientation.All
 
     Column {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.leftMargin: Theme.paddingMedium
-        anchors.rightMargin: Theme.paddingMedium
+        anchors {
+            left: parent.left
+            right: parent.right
+            leftMargin: Theme.paddingMedium
+            rightMargin: Theme.paddingMedium
+        }
 
         PageHeader {
             title: qsTr("About Audioworks")
@@ -22,9 +24,9 @@ Page {
         }
 
         Image {
+            anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width / 5
             height: width
-            anchors.horizontalCenter: parent.horizontalCenter
             source: "../cover/audiocut.svg"
             smooth: true
             asynchronous: true
@@ -53,8 +55,9 @@ Page {
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: Theme.fontSizeExtraSmall
             color: Theme.secondaryColor
-            text: qsTr("Copyright © 2020 Tobias Planitzer") + "\n "
-                  + qsTr(" © 2021-23 Mark Washeim")
+            text: qsTr("Copyright © 2020 Tobias Planitzer"
+                       + "\nCopyright © 2021-2023 Mark Washeim"
+                       + "\nCopyright © 2025 Smooth-E")
         }
 
         Item {
@@ -68,8 +71,7 @@ Page {
             font.pixelSize: Theme.fontSizeSmall
             color: Theme.secondaryColor
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-            text: qsTr("Audioworks is licensed under the terms") + "\n"
-                  + qsTr("of the GNU General Public License v3.")
+            text: qsTr("Audioworks is licensed under the terms of the GNU General Public License v3.")
         }
 
         Item {
@@ -78,27 +80,21 @@ Page {
         }
 
         Label {
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottomMargin: Theme.paddingSmall
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                bottomMargin: Theme.paddingSmall
+            }
+
             color: Theme.secondaryColor
             textFormat: Text.StyledText
             linkColor: Theme.highlightColor
             font.pixelSize: Theme.fontSizeSmall
-            text: "<a href=\"https://github.com/poetaster/harbour-audiocut\">Source: github</a>"
-            /*text: "<style>a:link{color: " + Theme.highlightColor + ";}</style>" +  "<a href=\"https://github.com/poetaster/harbour-audiocut\">Source: github</a>" */
+            text: "<a href=\"https://github.com/Smooth-E/aurora-audioworks\">Source: GitHub</a>"
+
             onLinkActivated: {
-                console.log("Opening external browser: " + link);
+                console.log("Opening external browser:", link);
                 Qt.openUrlExternally(link)
             }
         }
-        /*
-        Button {
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr("View license")
-            onClicked: {
-                pageStack.push(Qt.resolvedUrl("LicensePage.qml"));
-            }
-        }*/
-
     }
 }

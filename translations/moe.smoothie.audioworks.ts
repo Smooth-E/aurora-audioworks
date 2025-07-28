@@ -8,23 +8,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Copyright © 2020 Tobias Planitzer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>An Audio Tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Audioworks is licensed under the terms</source>
+        <source>Copyright © 2020 Tobias Planitzer
+Copyright © 2021-2023 Mark Washeim
+Copyright © 2025 Smooth-E</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>of the GNU General Public License v3.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> © 2021-23 Mark Washeim</source>
+        <source>Audioworks is licensed under the terms of the GNU General Public License v3.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -275,14 +269,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Artist</source>
         <translation type="unfinished"></translation>
     </message>
@@ -303,19 +289,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Source file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Audio tags</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>LAME encoder for mp3 is not yet installed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>LAME only works when started from terminal.</source>
+        <source>Source file: %1
+Path: %2
+Size: %2 kb</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
