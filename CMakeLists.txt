@@ -3,9 +3,10 @@ project(moe.smoothie.audioworks)
 
 find_package (Qt5 COMPONENTS Core Network Qml Gui Quick LinguistTools REQUIRED)
 
-include(FindPkgConfig)
+include(FindPkgConfig REQUIRED)
 pkg_search_module(AURORA auroraapp REQUIRED)
 pkg_search_module(AURORA auroraapp_i18n REQUIRED)
+pkg_check_modules(FFMPEG REQUIRED IMPORTED_TARGET ffmpeg)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -16,6 +17,8 @@ file(GLOB_RECURSE QML_FILES "qml/*.qml")
 file(GLOB_RECURSE ICON_FILES "icons/*.png")
 file(GLOB TS_FILES "translations/*.ts")
 file(GLOB MD_FILES "*.md")
+
+# Translations
 
 set(TRANSLATION_SOURCES_FILES
     ${SOURCES_FILES}
@@ -68,10 +71,12 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 target_include_directories(${PROJECT_NAME} PRIVATE
     $<BUILD_INTERFACE:
     ${AURORA_INCLUDE_DIRS}
+    PkgConfig::FFMPEG
 >)
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt5::Quick
     ${AURORA_LDFLAGS}
+    PkgConfig::FFMPEG
 )
 
 install(TARGETS ${PROJECT_NAME}
@@ -87,18 +92,26 @@ foreach(_file IN LISTS TRANSLATION_QM_FILES)
     install(FILES ${_file} DESTINATION share/${PROJECT_NAME}/translations RENAME ${_full_filename})
 endforeach()
 
-set(IconSize 86x86 108x108 128x128 172x172)
-foreach(_size IN LISTS IconSize)
-    install(FILES icons/${_size}/${PROJECT_NAME}.png DESTINATION share/icons/hicolor/${_size}/apps)
-endforeach()
+# PyDub and PyOtherSide files
 
 install(DIRECTORY lib/pydub
     DESTINATION /usr/share/${PROJECT_NAME}/lib
 )
 
+# App icons
+
+set(IconSize 86x86 108x108 128x128 172x172)
+foreach(_size IN LISTS IconSize)
+    install(FILES icons/${_size}/${PROJECT_NAME}.png DESTINATION share/icons/hicolor/${_size}/apps)
+endforeach()
+
+# Install the desktop file
+
 install(FILES ${PROJECT_NAME}.desktop
     DESTINATION share/applications
 )
+
+# Files for Qt Creator (Aurora IDE)
 
 file(WRITE "${CMAKE_BINARY_DIR}/QtCreatorDeployment.txt"
     "${CMAKE_INSTALL_PREFIX}

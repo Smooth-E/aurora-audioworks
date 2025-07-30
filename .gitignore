@@ -66,6 +66,7 @@ QtCreatorDeployment.txt
 CMakeFiles
 gen_translations
 *autogen
+conan-libs
 
 # Compiled executable
 moe.smoothie.audioworks

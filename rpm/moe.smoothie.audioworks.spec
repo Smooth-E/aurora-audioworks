@@ -1,10 +1,8 @@
 Name:       moe.smoothie.audioworks
 
-# >> macros
-%define _binary_payload w2.xzdio
-%define __provides_exclude_from ^%{_datadir}/%{name}/lib/.*\\.so\\>
-%define __requires_exclude_from ^%{_datadir}/%{name}/lib/.*\\.so\\>
-# << macros
+%define _cmake_skip_rpath %{nil}
+%define __provides_exclude_from ^%{_datadir}/%{name}/lib/.*$
+%define __requires_exclude ^(libavcodec.*|libavdevice.*|libavfilter.*|libavformat.*|libavutil.*|libswresample.*|libswscale.*)$
 
 Summary:    Audiocut
 Version:    1.5.2
@@ -22,6 +20,7 @@ BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  desktop-file-utils
+BuildRequires:  conan
 
 # Requires: lame
 
@@ -32,11 +31,24 @@ Audioworks is a small audio workbench. Trim/Splice, add echo! WIP.
 %setup -q -n %{name}-%{version}
 
 %build
+# Prepare conan
+CONAN_LIB_DIR="%{_builddir}/conan-libs/"
+%{set_build_flags}
+conan-install-if-modified --source-folder="%{_sourcedir}/.." --output-folder="$CONAN_LIB_DIR" -vwarning
+PKG_CONFIG_PATH="$CONAN_LIB_DIR":$PKG_CONFIG_PATH
+export PKG_CONFIG_PATH
+# Build
 %cmake -GNinja
 %ninja_build
 
 %install
+# Install everything else
 %ninja_install
+# Deploy conan shared libraries
+CONAN_LIB_DIR="%{_builddir}/conan-libs/"
+SHARED_LIBRARIES="%{buildroot}/%{_datadir}/%{name}/lib"
+mkdir -p "$SHARED_LIBRARIES"
+conan-deploy-libraries "%{buildroot}/%{_bindir}/%{name}" "$CONAN_LIB_DIR" "$SHARED_LIBRARIES"
 
 %files
 %defattr(-,root,root,-)
