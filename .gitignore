@@ -56,3 +56,16 @@ compile_commands.json
 .apptool.config
 qmake_variables.default.cache
 RPMS/*
+build*
+.ninja*
+CMakeCache.txt
+cmake_install.cmake
+documentation.list
+install_manifest.txt
+QtCreatorDeployment.txt
+CMakeFiles
+gen_translations
+*autogen
+
+# Compiled executable
+moe.smoothie.audioworks

@@ -2,7 +2,7 @@
 Type=Application
 X-Nemo-Application-Type=silica-qt5
 Icon=moe.smoothie.audioworks
-Exec=sailfish-qml moe.smoothie.audioworks %u -platform wayland
+Exec=moe.smoothie.audioworks
 Name=Audioworks
 
 [X-Application]

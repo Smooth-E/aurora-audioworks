@@ -15,10 +15,9 @@ URL:        https://github.com/poetaster/harbour-audiocut
 Source0:    %{name}-%{version}.tar.bz2
 Requires:   sailfishsilica-qt5 >= 0.10.9
 Requires:   pyotherside-qml-plugin-python3-qt5
-Requires:   libauroraapp-launcher
 
 BuildRequires:  qt5-qttools-linguist
-BuildRequires:  pkgconfig(auroraapp) >= 1.0.2
+BuildRequires:  pkgconfig(auroraapp)
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
@@ -33,19 +32,15 @@ Audioworks is a small audio workbench. Trim/Splice, add echo! WIP.
 %setup -q -n %{name}-%{version}
 
 %build
-%qmake5 
-make %{?_smp_mflags}
+%cmake -GNinja
+%ninja_build
 
 %install
-rm -rf %{buildroot}
-%qmake5_install
-
-desktop-file-install --delete-original       \
-  --dir %{buildroot}%{_datadir}/applications             \
-   %{buildroot}%{_datadir}/applications/*.desktop
+%ninja_install
 
 %files
 %defattr(-,root,root,-)
+%{_bindir}/%{name}
 %defattr(0644,root,root,-)
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
