@@ -12,7 +12,7 @@ Page {
 
     property string inputPathPy : decodeURIComponent( "/" + idAudioPlayer.source.toString().replace(/^(file:\/{3})|(qrc:\/{2})|(http:\/{2})/,"") )
     property string saveAudioFolderPath
-    property string symbolSourceFolder : "/usr" + "/share" + "/harbour-audiocut" + "/qml" + "/symbols/"
+    property string symbolSourceFolder : "/usr/share/moe.smoothie.audioworks/qml/symbols/"
     property string lastTmpAudio2delete
     property string lastTmpImage2delete
     property string origAudioFilePath

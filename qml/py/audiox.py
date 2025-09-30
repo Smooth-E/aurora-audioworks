@@ -18,43 +18,16 @@ sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 1)
 try:
     import pydub
 except ImportError:
-    pyotherside.send('warningPydubNotAvailable', )
+    pyotherside.send('warningPydubNotAvailable')
+
 from pydub import AudioSegment
 from pydub import effects
 from pydub.utils import mediainfo
 
 
-bin_path = "/usr/share/moe.smoothie.audioworks/bin/"
-cache_path = os.path.expanduser("~") + "/.cache/moe.smoothie/audioworks/"
-ffmpeg_path = cache_path + "ffmpeg"
-ffprobe_path = cache_path + "ffprobe"
-ffmpeg_tar = bin_path + "ffmpeg.tar"
-lame_tar = bin_path + "lame.tar"
-lame_path = cache_path + "lame"
-
-
-# https://forum.sailfishos.org/t/qprocess-and-sailjail/11873/16
-def prepare_binaries():
-    print("Preparing binaries...")
-    
-    if (os.path.isfile(ffmpeg_path) and os.path.isfile(ffprobe_path)):
-        print("Found ffmpeg binaries")
-    else:
-        with tarfile.open(ffmpeg_tar, "r") as file:
-            file.extractall(cache_path)
-            print("Extracted ffmpeg binaries")
-    
-    os.chmod(ffmpeg_path, 0o744)
-    os.chmod(ffprobe_path, 0o744)
-    
-    if (os.path.isfile(lame_path)):
-        print("Found lame binary")
-    else:
-        with tarfile.open(lame_tar, "r") as file:
-            file.extractall(cache_path)
-            print("Extracted lame binary")
-    
-    os.chmod(lame_path, 0o744)
+bin_path = "/usr/libexec/moe.smoothie.audioworks/"
+ffmpeg_path = bin_path + "ffmpeg"
+lame_path = bin_path + "lame"
 
 
 # Functions for file operations

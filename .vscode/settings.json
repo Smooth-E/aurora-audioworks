@@ -1,8 +1,18 @@
 {
     "cSpell.words": [
+        "armv",
         "audioworks",
         "auroraapp",
+        "cpython",
         "DISTFILES",
-        "pydub"
-    ]
+        "libexec",
+        "libexecdir",
+        "pydub",
+        "pyotherside"
+    ],
+    "files.associations": {
+        "*.pro": "shellscript",
+        "*.desktop": "shellscript",
+        "*.spec": "shellscript"
+    }
 }

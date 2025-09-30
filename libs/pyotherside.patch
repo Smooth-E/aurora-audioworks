@@ -1,0 +1,13 @@
+diff --git a/libs/pyotherside/pyotherside.pro b/libs/pyotherside/pyotherside.pro
+index 7b0ef2b..ce140a0 100644
+--- a/libs/pyotherside/pyotherside.pro
++++ b/libs/pyotherside/pyotherside.pro
+@@ -1,7 +1,5 @@
+ TEMPLATE = subdirs
+-SUBDIRS += src tests qtquicktests
+-
+-tests.depends = src
++SUBDIRS += src
+ 
+ include(pyotherside.pri)
+ 

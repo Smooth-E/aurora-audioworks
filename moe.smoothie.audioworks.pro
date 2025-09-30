@@ -1,6 +1,6 @@
 TARGET = moe.smoothie.audioworks
 
-CONFIG += auroraapp_qml
+CONFIG += auroraapp
 
 DISTFILES += \
     qml/cover/CoverPage.qml \
@@ -17,38 +17,43 @@ DISTFILES += \
 
 AURORAAPP_ICONS = 86x86 108x108 128x128 172x172
 
-# to disable building translations every time, comment out the
-# following CONFIG line
 CONFIG += auroraapp_i18n
 
-# German translation is enabled as an example. If you aren't
-# planning to localize your app, remember to comment out the
-# following TRANSLATIONS line. And also do not forget to
-# modify the localized app name in the the .desktop file.
-TRANSLATIONS += translations/moe.smoothie.audioworks-de.ts \
-                translations/moe.smoothie.audioworks-sv.ts \
-                translations/moe.smoothie.audioworks-zh_CN.ts \
-                translations/moe.smoothie.audioworks-ru.ts
+TRANSLATIONS += translations/moe.smoothie.audioworks-*.ts
 
-HEADERS +=
+SOURCES += src/moe.smoothie.audioworks.cpp
 
-# include precompiled static library according to architecture
-equals(QT_ARCH, arm64): {
-  ffmpeg_static.files = lib/ffmpeg/arm64/ffmpeg.tar
-  lame.files = lib/lame/arm64/lame.tar
+# Vendor libraries
+
+libdir = /usr/share/$$TARGET/lib
+libexecdir = /usr/libexec/$$TARGET
+cpython_version = "3.13"
+
+message(Building for architecture $$QT_ARCH)
+equals(QT_ARCH, arm64) {
+    vendor = vendor/aarch64
+    lib_subdir = lib64
 }
-equals(QT_ARCH, x86_64): {
-  ffmpeg_static.files = lib/ffmpeg/x86_64/ffmpeg.tar
-  lame.files = lib/lame/x86_64/lame.tar
+# qmake in Aurora Platform SDK armv7hl prefix reports QT_ARCH as just arm...
+equals(QT_ARCH, arm) {
+    # But cmake, which we use for building cpython, reports it as armv7l
+    vendor = vendor/armv7l
+    lib_subdir = lib
 }
+message(Selected vendor dir $$vendor)
 
-ffmpeg_static.path = /usr/share/moe.smoothie.audioworks/bin
-lame.path = /usr/share/moe.smoothie.audioworks/bin
+vendored_bin.path = $$libexecdir
+vendored_bin.files = $$vendor/bin/python3 \
+                     $$vendor/bin/python$$cpython_version \
+                     $$vendor/bin/ffmpeg
 
-INSTALLS += ffmpeg_static lame
+vendored_lib.path = $$libdir
+vendored_lib.files = $$vendor/lib/python$$cpython_version \
+                     $$vendor/lib/*.so*
 
-DISTFILES += lib/pydub \
+pyotherside.path = $$libdir/
+pyotherside.files = $$vendor/usr/$$lib_subdir/qt5
 
-python.files = lib/pydub/*
-python.path = "/usr/share/moe.smoothie.audioworks/lib/pydub"
-INSTALLS += python
+
+
+INSTALLS += vendored_bin vendored_lib pyotherside

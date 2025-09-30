@@ -56,3 +56,7 @@ compile_commands.json
 .apptool.config
 qmake_variables.default.cache
 RPMS/*
+build/
+
+# Vendored libs
+vendor
