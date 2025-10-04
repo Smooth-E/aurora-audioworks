@@ -7,3 +7,6 @@
 [submodule "libs/ffmpeg"]
 	path = libs/ffmpeg
 	url = https://github.com/FFmpeg/FFmpeg
+[submodule "libs/pydub"]
+	path = libs/pydub
+	url = https://github.com/jiaaro/pydub

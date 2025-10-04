@@ -5,14 +5,18 @@
         "auroraapp",
         "cpython",
         "DISTFILES",
+        "dynload",
+        "LDFLAGS",
         "libexec",
         "libexecdir",
         "pydub",
-        "pyotherside"
+        "pyotherside",
+        "rpath"
     ],
     "files.associations": {
         "*.pro": "shellscript",
         "*.desktop": "shellscript",
-        "*.spec": "shellscript"
+        "*.spec": "shellscript",
+        "*.ts": "xml"
     }
 }

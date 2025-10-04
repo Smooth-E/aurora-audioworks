@@ -1,0 +1,58 @@
+diff --git a/libs/pydub/pydub/audio_segment.py b/libs/pydub/pydub/audio_segment.py
+index 3b9e288..c57dff3 100644
+--- a/libs/pydub/pydub/audio_segment.py
++++ b/libs/pydub/pydub/audio_segment.py
+@@ -714,7 +714,7 @@ class AudioSegment(object):
+             stdin_parameter = None
+             stdin_data = None
+         else:
+-            if cls.converter == 'ffmpeg':
++            if 'ffmpeg' in cls.converter:
+                 conversion_command += ["-read_ahead_limit", str(read_ahead_limit),
+                                        "-i", "cache:pipe:0"]
+             else:
+diff --git a/pydub/utils.py b/pydub/utils.py
+index 2694f90..bf54921 100644
+--- a/libs/pydub/pydub/utils.py
++++ b/libs/pydub/pydub/utils.py
+@@ -165,14 +165,7 @@ def get_encoder_name():
+     """
+     Return enconder default application for system, either avconv or ffmpeg
+     """
+-    if which("avconv"):
+-        return "avconv"
+-    elif which("ffmpeg"):
+-        return "ffmpeg"
+-    else:
+-        # should raise exception
+-        warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+-        return "ffmpeg"
++    return "/usr/libexec/moe.smoothie.audioworks/ffmpeg"
+ 
+ 
+ def get_player_name():
+@@ -193,14 +186,7 @@ def get_prober_name():
+     """
+     Return probe application, either avconv or ffmpeg
+     """
+-    if which("avprobe"):
+-        return "avprobe"
+-    elif which("ffprobe"):
+-        return "ffprobe"
+-    else:
+-        # should raise exception
+-        warn("Couldn't find ffprobe or avprobe - defaulting to ffprobe, but may not work", RuntimeWarning)
+-        return "ffprobe"
++    return "/usr/libexec/moe.smoothie.audioworks/ffprobe"
+ 
+ 
+ def fsdecode(filename):
+@@ -262,7 +248,7 @@ def mediainfo_json(filepath, read_ahead_limit=-1):
+         stdin_parameter = None
+         stdin_data = None
+     except TypeError:
+-        if prober == 'ffprobe':
++        if 'ffprobe' in prober:
+             command_args += ["-read_ahead_limit", str(read_ahead_limit),
+                              "cache:pipe:0"]
+         else:

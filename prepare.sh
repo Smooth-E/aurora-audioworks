@@ -15,7 +15,7 @@ package_name="moe.smoothie.audioworks"
 select_all=1
 select_cpython=
 select_pyotherside=
-select_pip=
+select_pydub=
 select_ffmpeg=
 cpython_enable_optimizations=""
 
@@ -29,7 +29,7 @@ help()
    echo "Selective build. If one of the below options is present, only execute selected steps."
    echo "  --build-cpython      Build cpython."
    echo "  --build-pyotherside  Build pyotherside."
-   echo "  --do-pip             Install pydub pip package."
+   echo "  --install-pydub      Copy pydub module files into vendor."
    echo "  --build-ffmpeg       Build FFmpeg libraries and programs."
    echo "Extra opts:"
    echo "  --enable-optimizations  Pass --enable-optimizations to ./configure when building cpython for aarch64/x86_64."  
@@ -119,11 +119,9 @@ build_pyotherside()
 }
 
 install_pydub() {
-    # This is needed when running this function by itself
-    mkdir -p libs/cpython/build/
-
-    sb2 -t $target bash -c "$(pwd)/vendor/$arch/bin/python3 -m \
-        pip install -t $(pwd)/vendor/$arch/lib/python$cpython_version/site-packages/ pydub || exit 1"
+    echo Copying pydub module into vendor/site-packages
+    rm -rf vendor/$arch/lib/python$cpython_version/pydub
+    cp -r libs/pydub/pydub vendor/$arch/lib/python$cpython_version/ || exit 1
 }
 
 build_ffmpeg() {
@@ -136,13 +134,12 @@ build_ffmpeg() {
     build_flags=$(sb2 -t $target rpm --eval '%set_build_flags')
 
     sb2 -t $target bash -c "\
-        echo Building ffmpeg: build_flags && \
+        echo Building ffmpeg: build_flags... && \
         $build_flags && \
         echo Building ffmpeg: configure... && \
         ../configure --prefix=$(pwd)/../../../vendor/$arch \
                      --enable-shared \
                      --disable-ffplay \
-                     --disable-ffprobe \
                      --disable-doc && \
         echo Building ffmpeg: make... && \
         make -j$(nproc --all) && \
@@ -194,8 +191,8 @@ while [[ $# -gt 0 ]]; do
             select_all=0
             shift
         ;;
-        (--do-pip)
-            select_pip=1
+        (--install-pydub)
+            select_pydub=1
             select_all=0
             shift
         ;;
@@ -218,7 +215,7 @@ done
 init_target_vars
 install_dependencies
 if (( select_all || select_cpython )); then build_cpython; fi
-if (( select_all || select_pip )); then install_pydub; fi
+if (( select_all || select_pydub )); then install_pydub; fi
 if (( select_all || select_pyotherside )); then build_pyotherside; fi
 if (( select_all || select_ffmpeg )); then build_ffmpeg; fi
 clear
