@@ -144,8 +144,6 @@ Page {
             addImportPath(Qt.resolvedUrl('../py'));
             importModule('audiox', function () {});
 
-            call("audiox.prepare_binaries", {})
-
             // Handlers do something to QML whith received Infos from Pythonfile (=pyotherside.send)
             setHandler('homePathFolder', function( homeDir ) {
                 tempAudioFolderPath = homeDir + "/.cache/de.poetaster/harbour-audiocut/"

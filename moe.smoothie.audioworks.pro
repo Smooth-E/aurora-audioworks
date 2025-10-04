@@ -27,7 +27,7 @@ SOURCES += src/moe.smoothie.audioworks.cpp
 
 libdir = /usr/share/$$TARGET/lib
 libexecdir = /usr/libexec/$$TARGET
-cpython_version = "3.13"
+cpython_version = "3.8"
 
 message(Building for architecture $$QT_ARCH)
 equals(QT_ARCH, arm64) {
@@ -53,7 +53,5 @@ vendored_lib.files = $$vendor/lib/python$$cpython_version \
 
 pyotherside.path = $$libdir/
 pyotherside.files = $$vendor/usr/$$lib_subdir/qt5
-
-
 
 INSTALLS += vendored_bin vendored_lib pyotherside

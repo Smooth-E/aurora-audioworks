@@ -8,24 +8,38 @@
 
 target=""
 arch=""
-cpython_version="3.13"
-# cpython_enable_optimizations="--enable-optimizations"
+cpython_version="3.8"
+package_name="moe.smoothie.audioworks"
+
+# The following vars are controlled by arguments
+select_all=1
+select_cpython=
+select_pyotherside=
+select_pip=
+select_ffmpeg=
 cpython_enable_optimizations=""
 
 help()
 {
    # Display Help
-   echo "Syntax: prepare [-t <TARGET>|-h]"
-   echo "options:"
+   echo "Syntax: prepare REQUIRED [SELECTIVE] [EXTRA]"
+   echo "Required args. You need to specify on of the following args:"
    echo "  -t   Set the target to build. Example: AuroraOS-5.1.1.60-base-armv7hl."
    echo "  -h   Print this help."
+   echo "Selective build. If one of the below options is present, only execute selected steps."
+   echo "  --build-cpython      Build cpython."
+   echo "  --build-pyotherside  Build pyotherside."
+   echo "  --do-pip             Install pydub pip package."
+   echo "  --build-ffmpeg       Build FFmpeg libraries and programs."
+   echo "Extra opts:"
+   echo "  --enable-optimizations  Pass --enable-optimizations to ./configure when building cpython for aarch64/x86_64."  
    echo
 }
 
 init_target_vars()
 {
 	# Initialize the $target and $arch variables
-	target=$OPTARG
+	# target=$OPTARG
 	arch=$(echo ${target##*-})
 
 	if [ "$arch" = "armv7hl" ]; then
@@ -66,7 +80,9 @@ build_cpython()
 
     # Build cpython with mb2
     sb2 -t $target bash -c "$build_flags && \
-	  ../configure --prefix=$(pwd)/../../../vendor/$arch --enable-shared $cpython_enable_optimizations && \
+	  ../configure --prefix=$(pwd)/../../../vendor/$arch \
+                   --enable-shared $cpython_enable_optimizations \
+                   LDFLAGS='$LDFLAGS -Wl,-rpath /usr/share/$package_name/lib/python$python_version/lib-dynload/' && \
 	  make -j$(nproc --all) && \
 	  make install || exit 1"
 
@@ -155,24 +171,54 @@ clear()
 	cd ..
 }
 
-while getopts ":t:h" option; do
-   case $option in
-      (t) # build stuff
-      	init_target_vars
-        install_dependencies
-        build_cpython
-        build_pyotherside
-        install_pydub
-        build_ffmpeg
-        clear;;
-      (h) # display help
-        help;;
-      (*)
-        help
-   esac
-done
-
-if [ $OPTIND -eq 1 ]
+if [[ $# = 0 ]];
 then 
 	help;
+    exit 0;
 fi
+
+while [[ $# -gt 0 ]]; do
+    case $1 in 
+        (-t)
+            target="$2"
+            shift
+            shift
+        ;;
+        (--build-cpython)
+            select_cpython=1
+            select_all=0
+            shift
+        ;;
+        (--build-pyotherside)
+            select_pyotherside=1
+            select_all=0
+            shift
+        ;;
+        (--do-pip)
+            select_pip=1
+            select_all=0
+            shift
+        ;;
+        (--build-ffmpeg)
+            select_ffmpeg=1
+            select_all=0
+            shift
+        ;;
+        (--enable-optimizations)
+            cpython_enable_optimizations="--enable-optimizations"
+            shift
+        ;;
+        (-h)
+            help
+            exit 0
+        ;;
+    esac
+done
+
+init_target_vars
+install_dependencies
+if (( select_all || select_cpython )); then build_cpython; fi
+if (( select_all || select_pip )); then install_pydub; fi
+if (( select_all || select_pyotherside )); then build_pyotherside; fi
+if (( select_all || select_ffmpeg )); then build_ffmpeg; fi
+clear

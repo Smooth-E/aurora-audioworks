@@ -3,15 +3,9 @@
 
 int main(int argc, char *argv[])
 {
-    QString pythonPath("/usr/share/moe.smoothie.audioworks/"); 
-    pythonPath += QString(":/usr/share/moe.smoothie.audioworks/lib/python3.13/site-packages/");
-    // pythonPath += QString(":/usr/share/moe.smoothie.audioworks/lib/python3.13/lib-dynload/");
+    // For vendored python to work
+    qputenv("PYTHONHOME", QString("/usr/share/moe.smoothie.audioworks/").toUtf8().constData());
 
-    if (qputenv("PYTHONHOME", pythonPath.toUtf8().constData())) {
-        qDebug() << "Successfully set python home";
-    } else {
-        qDebug() << "Failed to set python home";
-    }
 
     QScopedPointer<QGuiApplication> app(Aurora::Application::application(argc, argv));
     app->setOrganizationName("moe.smoothie");
