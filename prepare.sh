@@ -61,7 +61,8 @@ install_dependencies()
 	qt5-qttools-qtuitools-devel libqtwebkit5-widgets-devel \
 	qt5-qtscript-devel qt5-qttools-qthelp-devel \
 	qt5-qtwebsockets-devel qt5-qttest-devel \
-	qt5-qttools-qtuiplugin-devel sqlite-devel mpg123-devel || exit 1
+	qt5-qttools-qtuiplugin-devel \
+    sqlite-devel mpg123-devel libvorbis-devel || exit 1
 }
 
 build_cpython()
@@ -141,6 +142,7 @@ build_ffmpeg() {
         echo Building ffmpeg: configure... && \
         ../configure --prefix=$(pwd)/../../../vendor/$arch \
                      --enable-shared \
+                     --enable-libvorbis \
                      --disable-ffplay \
                      --disable-doc && \
         echo Building ffmpeg: make... && \
