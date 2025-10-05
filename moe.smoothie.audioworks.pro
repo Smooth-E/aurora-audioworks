@@ -46,7 +46,8 @@ vendored_bin.path = $$libexecdir
 vendored_bin.files = $$vendor/bin/python3 \
                      $$vendor/bin/python$$cpython_version \
                      $$vendor/bin/ffmpeg \
-                     $$vendor/bin/ffprobe
+                     $$vendor/bin/ffprobe \
+                     $$vendor/bin/lame
 
 vendored_lib.path = $$libdir
 vendored_lib.files = $$vendor/lib/python$$cpython_version \

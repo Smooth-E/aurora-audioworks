@@ -17,6 +17,7 @@ select_cpython=
 select_pyotherside=
 select_pydub=
 select_ffmpeg=
+select_lame=
 cpython_enable_optimizations=""
 
 help()
@@ -31,6 +32,7 @@ help()
    echo "  --build-pyotherside  Build pyotherside."
    echo "  --install-pydub      Copy pydub module files into vendor."
    echo "  --build-ffmpeg       Build FFmpeg libraries and programs."
+   echo "  --build-lame         Build LAME MP3 encoder."
    echo "Extra opts:"
    echo "  --enable-optimizations  Pass --enable-optimizations to ./configure when building cpython for aarch64/x86_64."  
    echo
@@ -59,7 +61,7 @@ install_dependencies()
 	qt5-qttools-qtuitools-devel libqtwebkit5-widgets-devel \
 	qt5-qtscript-devel qt5-qttools-qthelp-devel \
 	qt5-qtwebsockets-devel qt5-qttest-devel \
-	qt5-qttools-qtuiplugin-devel sqlite-devel || exit 1
+	qt5-qttools-qtuiplugin-devel sqlite-devel mpg123-devel || exit 1
 }
 
 build_cpython()
@@ -149,6 +151,29 @@ build_ffmpeg() {
     cd ../../../
 }
 
+build_lame()
+{
+    echo Building lame...
+
+    cd libs/lame
+    mkdir -p build
+    cd build
+
+    build_flags=$(sb2 -t $target rpm --eval '%set_build_flags')
+
+    sb2 -t $target bash -c " \
+        echo Building lame: build_flags... && \
+        $build_flags && \
+        echo Building lame: configure... && \
+        ../configure --prefix=$(pwd)/../../../vendor/$arch && \
+        echo Building lame: make... && \
+        make -j$(nproc --all) && \
+        echo Building lame: make install... && \
+        make install || exit 1"
+    
+    cd ../../../
+}
+
 clear()
 {
 	echo "Clear build folders..."
@@ -201,6 +226,11 @@ while [[ $# -gt 0 ]]; do
             select_all=0
             shift
         ;;
+        (--build-lame)
+            select_lame=1
+            select_all=0
+            shift
+        ;;
         (--enable-optimizations)
             cpython_enable_optimizations="--enable-optimizations"
             shift
@@ -208,6 +238,12 @@ while [[ $# -gt 0 ]]; do
         (-h)
             help
             exit 0
+        ;;
+        (*)
+            echo Unsupported argument: $1
+            echo
+            help
+            exit 1
         ;;
     esac
 done
@@ -218,4 +254,5 @@ if (( select_all || select_cpython )); then build_cpython; fi
 if (( select_all || select_pydub )); then install_pydub; fi
 if (( select_all || select_pyotherside )); then build_pyotherside; fi
 if (( select_all || select_ffmpeg )); then build_ffmpeg; fi
+if (( select_all || select_lame )); then build_lame; fi
 clear

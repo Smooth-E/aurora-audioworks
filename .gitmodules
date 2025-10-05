@@ -10,3 +10,6 @@
 [submodule "libs/pydub"]
 	path = libs/pydub
 	url = https://github.com/jiaaro/pydub
+[submodule "libs/lame"]
+	path = libs/lame
+	url = https://github.com/lameproject/lame
