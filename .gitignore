@@ -60,3 +60,6 @@ build/
 
 # Vendored libs
 vendor
+
+# WSL file metadata
+*:Zone.Identifier
