@@ -1,20 +1,66 @@
-# harbour-audiocut
-Experimental audio manipulation app for Sailfish. Cut audio files or recordings and apply effects like fade-in, emphasize or denoiser. This app will install python3-pydub automatically from here. If not, this has to be done manually.
+# Audioworks для ОС Аврора
 
-Available for your Sailfish device at: https://openrepos.net/content/planetosstore/audiocut
+Экспериментальный аудио-редактор для ОС Аврора. Обрезайте записи или композиции, добавляйте эффекты затухания, выделения или шумоподавления.
 
-As of SF 3.3 there is no mp3-encoder included in the OS yet. If you need to save as mp3, you have to install LAME encoder as well, e.g. from here: https:/openrepos.net/content/lpr/lame.
+## Функционал
 
-## Contribute
+- Приложение поддерживает следующие форматы для открытия или сохранения: **wav**, **flac**, **ogg** и **mp3**.
+- Можно изменить мета-данные композиции: имя, исполнитель, альбом, номер трека и год релиза.
+- Манипуляции сс дорожкой:
+  - Вырезать выделенное
+  - Оставить только выделенное
+  - Заменить выделение тишиной
+- Манипуляции со звуком
+  - Изменения уровня громкости
+  - Постепенное усиление
+  - Постепенное затухание
+  - Тишина
+- Изменение скорости
+  - Изменить скорость
+  - Изменить скорость с сохранением высоты звучания
+  - Реверс
+- Работа с сегментами
+  - Копировать сегмент
+  - Вставить сегмент
+  - Вставить сегмент с заменой
+  - Наложить
+- Эффекты
+  - Шумоподавление
+  - Эхо
+  - Фильтр низких
+  - Фильтр высоких
+  - [Фланжер](https://ru.wikipedia.org/wiki/%D0%A4%D0%BB%D0%B0%D0%BD%D0%B6%D0%B5%D1%80)
+  - [Фэйзер](https://ru.wikipedia.org/wiki/%D0%A4%D1%8D%D0%B9%D0%B7%D0%B5%D1%80)
+  - [Хорус](https://ru.wikipedia.org/wiki/%D0%A5%D0%BE%D1%80%D1%83%D1%81_(%D1%8D%D1%84%D1%84%D0%B5%D0%BA%D1%82))
+- Работа с файлом: переименовать или удалить
 
-Please file your bug reports here and not in the Jolla or openrepos comments!
+## Поддержка и предложения
 
-## Authors
+Если у вас возникли проблемы или появились вопросы, создайте пост в [GitHub Issues](https://github.com/Smooth-E/aurora-audioworks/issues) этого репозитория.
 
-2020 - Tobias Planitzer <tobias.planitzer@protonmail.com>
+Вы также можете поддержать автора порта для ОС Аврора монетой на [Boosty](https://boosty.to/smooth-e/donate).
 
-Tobias wrote Audiocast and poetaster is developing and maintaining it in future.
+Мы будем рады, если вы поддержите проект, предложив свои  изменения или исправления. Сборка проекта осуществляется при помощи [Aurora Platform SDK](https://developer.auroraos.ru/doc/sdk/psdk/setup_script) на Linux или внутри WSL. Мы не тестировали возможность сборки в других конфигурациях.
 
-2021 - Mark Washeim <blueprint@poetaster.de>
+Для сборки проекта необходимо выполнить следующие шаги:
 
- 
+1. Клонируйте этот репозиторий и сабмодули:
+   ```sh
+   git clone https://github.com/Smooth-E/aurora-audioworks --recurse-submodules && cd aurora-audioworks
+   ```
+2. Примените патчи для библиотек:
+   ```sh
+   git apply libs/*.patch
+   ```
+3. Соберите библиотеки, поставляемые вместе с приложением. Это будет необходимо сделать хотя бы один раз для каждой целевой архитектуры.
+   ```sh
+   aurora_psdk ./prepare.sh -t  AuroraOS-5.1.5.105-MB2-aarch64
+   ```
+   Вы можете узнать о работе скрипта подробнее, выполнив `./prepare -h`. Скрипт позволяет собирать библиотеки по-отдельности или включить дополнительные оптимизации для них.
+4. Соберите, запакуйте и установите приложение [стандартными средствами Aurora Platform SDK](https://developer.auroraos.ru/doc/sdk/psdk/build).
+
+## Авторы
+
+2020 - Tobias Planitzer <tobias.planitzer@protonmail.com> - автор приложения Audiocast для Sailfish OS
+<br>2021-2025 - Mark Washeim <blueprint@poetaster.de> - автор форка [Audiocut для Sailfish OS](https://github.com/poetaster/harbour-audiocut)
+<br>2025 - Smooth-E <smoothie@disroot.org> - автор порта приложения [Audiocut для ОС Аврора](https://github.com/Smooth-E/aurora-audioworks)
