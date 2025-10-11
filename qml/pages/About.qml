@@ -1,100 +1,144 @@
 import QtQuick 2.0
+import Aurora.Controls 1.0
 import Sailfish.Silica 1.0
+import "../components"
 
 Page {
     objectName: "AboutPage"
 
     allowedOrientations: Orientation.All
 
+    AppBar {
+        id: appBar
+
+        headerText: qsTr("About Audioworks")
+    }
+
     Column {
+        id: column
+
+        readonly property real horizontalMargin: Theme.horizontalPageMargin
+        readonly property real widgetWidth: width - horizontalMargin * 2
+
         anchors {
+            top: appBar.bottom
             left: parent.left
             right: parent.right
-            leftMargin: Theme.paddingMedium
-            rightMargin: Theme.paddingMedium
-        }
-
-        PageHeader {
-            title: qsTr("About Audioworks")
+            bottom: parent.bottom
         }
 
         Item {
             width: 1
-            height: 3 * Theme.paddingLarge
+            height: Theme.paddingLarge * 2
         }
 
         Image {
             anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width / 5
+            width: Theme.dp(128)
             height: width
-            source: "../cover/audiocut.svg"
-            smooth: true
-            asynchronous: true
+            source: Qt.resolvedUrl("../symbols/audiocut.svg")
         }
 
         Item {
             width: 1
-            height: Theme.paddingLarge
+            height: Theme.paddingLarge * 2
         }
 
         Label {
-            width: parent.width
+            width: column.widgetWidth
+            x: column.horizontalMargin
+            text: qsTr("Audioworks")
+            wrapMode: Text.Wrap
             horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: Theme.fontSizeLarge
+        }
+
+        Item {
+            width: 1
+            height: Theme.paddingMedium
+        }
+
+        Label {
+            width: column.widgetWidth
+            x: column.horizontalMargin
+            text: qsTr("An audio manipulation tool")
+            opacity: Theme.opacityOverlay
             font.pixelSize: Theme.fontSizeMedium
-            color: Theme.primaryColor
-            text: qsTr("An Audio Tool")
+            wrapMode: Text.Wrap
+            horizontalAlignment: Text.AlignHCenter
         }
 
         Item {
             width: 1
-            height: Theme.paddingLarge
+            height: Theme.paddingMedium
         }
 
         Label {
+            width: column.widgetWidth
+            x: column.horizontalMargin
+            text: qsTr("Contributions and support")
+            color: Theme.highlightColor
+            wrapMode: Text.Wrap
+        }
+
+        Item {
+            width: 1
+            height: Theme.paddingMedium
+        }
+
+        PreferenceButton {
             width: parent.width
-            horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: Theme.fontSizeExtraSmall
-            color: Theme.secondaryColor
+            icon.source: Qt.resolvedUrl("../symbols/icon-github.svg")
+            name: qsTr("GitHub")
+            description: qsTr("View source code, propose changes or report problems.")
+            
+            onClicked: Qt.openUrlExternally("https://github.com/Smooth-E/aurora-audioworks")
+        }
+
+        PreferenceButton {
+            width: parent.width
+            icon.source: Qt.resolvedUrl("../symbols/icon-sparkle.svg")
+            name: qsTr("Donate")
+            description: qsTr("Support the maintainer of this app.")
+
+            onClicked: Qt.openUrlExternally("https://boosty.to/smooth-e/donate")
+        }
+
+        Label {
+            width: column.widgetWidth
+            x: column.horizontalMargin
+            text: qsTr("Authors")
+            color: Theme.highlightColor
+            wrapMode: Text.Wrap
+        }
+
+        Item {
+            width: 1
+            height: Theme.paddingMedium
+        }
+
+        Label {
+            width: column.widgetWidth
+            x: column.horizontalMargin
+            wrapMode: Text.Wrap
+            opacity: Theme.opacityOverlay
+            font.pixelSize: Theme.fontSizeSmall
+            text: qsTr("This app was originally developed for Sailfish OS by people mentioned below. "
+                       + "It was then ported to Aurora OS and is now maintained by Smooth-E.")
+        }
+
+        Item {
+            width: 1
+            height: Theme.paddingMedium
+        }
+
+        Label {
+            width: column.widgetWidth
+            x: column.horizontalMargin
+            wrapMode: Text.Wrap
             text: qsTr("Copyright © 2020 Tobias Planitzer"
                        + "\nCopyright © 2021-2023 Mark Washeim"
                        + "\nCopyright © 2025 Smooth-E")
-        }
-
-        Item {
-            width: 1
-            height: 2 * Theme.paddingLarge
-        }
-
-        Label {
-            width: parent.width
-            horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: Theme.fontSizeSmall
-            color: Theme.secondaryColor
-            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-            text: qsTr("Audioworks is licensed under the terms of the GNU General Public License v3.")
-        }
-
-        Item {
-            width: 1
-            height: 2 * Theme.paddingLarge
-        }
-
-        Label {
-            anchors {
-                horizontalCenter: parent.horizontalCenter
-                bottomMargin: Theme.paddingSmall
-            }
-
-            color: Theme.secondaryColor
-            textFormat: Text.StyledText
-            linkColor: Theme.highlightColor
-            font.pixelSize: Theme.fontSizeSmall
-            text: "<a href=\"https://github.com/Smooth-E/aurora-audioworks\">Source: GitHub</a>"
-
-            onLinkActivated: {
-                console.log("Opening external browser:", link);
-                Qt.openUrlExternally(link)
-            }
         }
     }
 }

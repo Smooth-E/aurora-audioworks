@@ -8,10 +8,6 @@
         <translation>О приложении</translation>
     </message>
     <message>
-        <source>An Audio Tool</source>
-        <translation>Утилита для работы с аудио</translation>
-    </message>
-    <message>
         <source>Copyright © 2020 Tobias Planitzer
 Copyright © 2021-2023 Mark Washeim
 Copyright © 2025 Smooth-E</source>
@@ -20,8 +16,40 @@ Copyright © 2021-2023 Mark Washeim
 Copyright © 2025 Smooth-E</translation>
     </message>
     <message>
-        <source>Audioworks is licensed under the terms of the GNU General Public License v3.</source>
-        <translation>Audioworks распространяется под лицензией GNU General Public License v3.</translation>
+        <source>Audioworks</source>
+        <translation>Audioworks</translation>
+    </message>
+    <message>
+        <source>Donate</source>
+        <translation>Пожертвования</translation>
+    </message>
+    <message>
+        <source>An audio manipulation tool</source>
+        <translation>Приложение для работы с аудио</translation>
+    </message>
+    <message>
+        <source>Contributions and support</source>
+        <translation>Поддержка и предложения</translation>
+    </message>
+    <message>
+        <source>GitHub</source>
+        <translation>GitHub</translation>
+    </message>
+    <message>
+        <source>View source code, propose changes or report problems.</source>
+        <translation>Изучите исходный код, предложите изменения или сообщите о проблеме.</translation>
+    </message>
+    <message>
+        <source>Support the maintainer of this app.</source>
+        <translation>Поддержите работу над приложением монетой.</translation>
+    </message>
+    <message>
+        <source>Authors</source>
+        <translation>Авторы</translation>
+    </message>
+    <message>
+        <source>This app was originally developed for Sailfish OS by people mentioned below. It was then ported to Aurora OS and is now maintained by Smooth-E.</source>
+        <translation>Изначально данное приложение разрабатывалось для Sailfish OS людьми, упомянутыми ниже. Порт для ОС Аврора подготовлен и поддерживается Smooth-E.</translation>
     </message>
 </context>
 <context>
