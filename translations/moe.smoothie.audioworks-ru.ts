@@ -285,18 +285,42 @@ Copyright © 2025 Smooth-E</translation>
     </message>
 </context>
 <context>
-    <name>SavePage</name>
+    <name>SaveDialog</name>
     <message>
-        <source>Save as</source>
-        <translation>Сохранить как</translation>
+        <source>Save</source>
+        <translation>Сохранить</translation>
+    </message>
+    <message>
+        <source>Destination</source>
+        <translation>Местоположение</translation>
     </message>
     <message>
         <source>overwrite...</source>
         <translation>Заменить</translation>
     </message>
     <message>
+        <source>Destination folder</source>
+        <translation>Папка для сохранения</translation>
+    </message>
+    <message>
         <source>Original Folder</source>
         <translation>Исходная папка</translation>
+    </message>
+    <message>
+        <source>Output file information</source>
+        <translation>Информация о файле</translation>
+    </message>
+    <message>
+        <source>Source file: %1</source>
+        <translation>Исходный файл: %1</translation>
+    </message>
+    <message>
+        <source>Path: %1</source>
+        <translation>Путь: %1</translation>
+    </message>
+    <message>
+        <source>Estimated output size: %1kb</source>
+        <translation>Примерный размер после сохранения: %1кб</translation>
     </message>
     <message>
         <source>Audio tags</source>
@@ -323,12 +347,8 @@ Copyright © 2025 Smooth-E</translation>
         <translation>Год</translation>
     </message>
     <message>
-        <source>Source file: %1
-Path: %2
-Size: %2 kb</source>
-        <translation>Исходный файл: %1
-Путь: %2
-Размер: %3 кб</translation>
+        <source>Saving...</source>
+        <translation>Сохранение...</translation>
     </message>
 </context>
 </TS>

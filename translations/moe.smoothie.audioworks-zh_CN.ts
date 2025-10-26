@@ -283,47 +283,69 @@ Copyright © 2025 Smooth-E</source>
     </message>
 </context>
 <context>
-    <name>SavePage</name>
+    <name>SaveDialog</name>
     <message>
-        <source>Save as</source>
-        <translation>保存为</translation>
+        <source>Save</source>
+        <translation type="unfinished">保存</translation>
+    </message>
+    <message>
+        <source>Destination</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>overwrite...</source>
-        <translation>复写…</translation>
+        <translation type="unfinished">复写…</translation>
+    </message>
+    <message>
+        <source>Destination folder</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Original Folder</source>
-        <translation>原始文件夹</translation>
+        <translation type="unfinished">原始文件夹</translation>
     </message>
     <message>
-        <source>Artist</source>
-        <translation>艺人</translation>
+        <source>Output file information</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Title</source>
-        <translation>标题</translation>
+        <source>Source file: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Album</source>
-        <translation>专辑</translation>
+        <source>Path: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Year</source>
-        <translation>年</translation>
-    </message>
-    <message>
-        <source>Track#</source>
-        <translation>音轨#</translation>
+        <source>Estimated output size: %1kb</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Audio tags</source>
-        <translation>音频标签</translation>
+        <translation type="unfinished">音频标签</translation>
     </message>
     <message>
-        <source>Source file: %1
-Path: %2
-Size: %2 kb</source>
+        <source>Title</source>
+        <translation type="unfinished">标题</translation>
+    </message>
+    <message>
+        <source>Artist</source>
+        <translation type="unfinished">艺人</translation>
+    </message>
+    <message>
+        <source>Album</source>
+        <translation type="unfinished">专辑</translation>
+    </message>
+    <message>
+        <source>Track#</source>
+        <translation type="unfinished">音轨#</translation>
+    </message>
+    <message>
+        <source>Year</source>
+        <translation type="unfinished">年</translation>
+    </message>
+    <message>
+        <source>Saving...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

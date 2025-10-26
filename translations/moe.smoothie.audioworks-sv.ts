@@ -283,47 +283,69 @@ Copyright © 2025 Smooth-E</source>
     </message>
 </context>
 <context>
-    <name>SavePage</name>
+    <name>SaveDialog</name>
     <message>
-        <source>Save as</source>
-        <translation>Spara som</translation>
+        <source>Save</source>
+        <translation type="unfinished">Spara</translation>
+    </message>
+    <message>
+        <source>Destination</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>overwrite...</source>
-        <translation>Skriv över...</translation>
+        <translation type="unfinished">Skriv över...</translation>
+    </message>
+    <message>
+        <source>Destination folder</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Original Folder</source>
-        <translation>Ursprunglig mapp</translation>
+        <translation type="unfinished">Ursprunglig mapp</translation>
     </message>
     <message>
-        <source>Artist</source>
-        <translation>Artist</translation>
+        <source>Output file information</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Title</source>
-        <translation>Titel</translation>
+        <source>Source file: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Album</source>
-        <translation>Album</translation>
+        <source>Path: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Year</source>
-        <translation>År</translation>
-    </message>
-    <message>
-        <source>Track#</source>
-        <translation>Spår#</translation>
+        <source>Estimated output size: %1kb</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Audio tags</source>
-        <translation>Ljudtaggar</translation>
+        <translation type="unfinished">Ljudtaggar</translation>
     </message>
     <message>
-        <source>Source file: %1
-Path: %2
-Size: %2 kb</source>
+        <source>Title</source>
+        <translation type="unfinished">Titel</translation>
+    </message>
+    <message>
+        <source>Artist</source>
+        <translation type="unfinished">Artist</translation>
+    </message>
+    <message>
+        <source>Album</source>
+        <translation type="unfinished">Album</translation>
+    </message>
+    <message>
+        <source>Track#</source>
+        <translation type="unfinished">Spår#</translation>
+    </message>
+    <message>
+        <source>Year</source>
+        <translation type="unfinished">År</translation>
+    </message>
+    <message>
+        <source>Saving...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

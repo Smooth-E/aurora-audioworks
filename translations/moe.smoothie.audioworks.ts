@@ -283,9 +283,13 @@ Copyright © 2025 Smooth-E</source>
     </message>
 </context>
 <context>
-    <name>SavePage</name>
+    <name>SaveDialog</name>
     <message>
-        <source>Save as</source>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Destination</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -293,27 +297,27 @@ Copyright © 2025 Smooth-E</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Destination folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Original Folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Artist</source>
+        <source>Output file information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Title</source>
+        <source>Source file: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Album</source>
+        <source>Path: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Year</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Track#</source>
+        <source>Estimated output size: %1kb</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -321,9 +325,27 @@ Copyright © 2025 Smooth-E</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Source file: %1
-Path: %2
-Size: %2 kb</source>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Artist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Album</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Track#</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saving...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

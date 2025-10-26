@@ -5,14 +5,17 @@ import QtMultimedia 5.0 // Audio Support
 import "../py"
 
 Page {
-    id: page
-    allowedOrientations: Orientation.Portrait //All
+    id: mainPage
+    allowedOrientations: Orientation.All
+
+    readonly property bool isMainPage: true
 
     property bool debug : false
 
     // file variables
 
-    property string inputPathPy : decodeURIComponent( "/" + idAudioPlayer.source.toString().replace(/^(file:\/{3})|(qrc:\/{2})|(http:\/{2})/,"") )
+    readonly property var inputPathPyRegexp: /^(file:\/{3})|(qrc:\/{2})|(http:\/{2})/
+    property string inputPathPy: decodeURIComponent("/" + idAudioPlayer.source.toString().replace(inputPathPyRegexp,""))
     property string saveAudioFolderPath
     property string symbolSourceFolder : "/usr/share/moe.smoothie.audioworks/qml/symbols/"
     property string lastTmpAudio2delete
@@ -180,7 +183,7 @@ Page {
                 text: qsTr("Save")
                 onClicked: {
                     idAudioPlayer.stop()
-                    pageStack.push(Qt.resolvedUrl("SavePage.qml"), {
+                    pageStack.push(Qt.resolvedUrl("SaveDialog.qml"), {
                         homeDirectory : homeDirectory,
                         origAudioFilePath : origAudioFilePath,
                         origAudioFileName : origAudioFileName,
@@ -199,7 +202,7 @@ Page {
         Column {
             id: column
 
-            width: page.width
+            width: mainPage.width
 
             SectionHeader {
                 id: idSectionHeader
