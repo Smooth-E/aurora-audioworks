@@ -76,22 +76,6 @@ Copyright © 2025 Smooth-E</source>
         <translation>选择音频文件</translation>
     </message>
     <message>
-        <source>Info</source>
-        <translation>信息</translation>
-    </message>
-    <message>
-        <source>Files</source>
-        <translation>文件</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>保存</translation>
-    </message>
-    <message>
-        <source>python3-pydub is not installed</source>
-        <translation>未安装 python3-pydub</translation>
-    </message>
-    <message>
         <source>remove (trim marked)</source>
         <translation>移除（剪裁标记）</translation>
     </message>
@@ -245,6 +229,22 @@ Copyright © 2025 Smooth-E</source>
     </message>
     <message>
         <source>chorus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Welcome to Audioworks!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tap the button above to open a file and start editing</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

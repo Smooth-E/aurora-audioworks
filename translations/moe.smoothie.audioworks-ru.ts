@@ -78,24 +78,8 @@ Copyright © 2025 Smooth-E</translation>
         <translation>Выберите аудио-файл</translation>
     </message>
     <message>
-        <source>Info</source>
-        <translation>О приложении</translation>
-    </message>
-    <message>
-        <source>Files</source>
-        <translation>Открыть файл</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Сохранить</translation>
-    </message>
-    <message>
         <source>Audioworks</source>
         <translation>Audioworks</translation>
-    </message>
-    <message>
-        <source>python3-pydub is not installed</source>
-        <translation>python3-pydub не установлен</translation>
     </message>
     <message>
         <source>remove (trim marked)</source>
@@ -248,6 +232,22 @@ Copyright © 2025 Smooth-E</translation>
     <message>
         <source>extract (trim unmarked)</source>
         <translation>обрезать (оставить только выделенное)</translation>
+    </message>
+    <message>
+        <source>Open file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Welcome to Audioworks!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tap the button above to open a file and start editing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
