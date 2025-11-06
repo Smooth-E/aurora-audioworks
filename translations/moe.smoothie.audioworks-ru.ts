@@ -75,11 +75,11 @@ Copyright © 2025 Smooth-E</translation>
     <name>EditorCover</name>
     <message>
         <source>Active project</source>
-        <translation type="unfinished"></translation>
+        <translation>Открытый файл</translation>
     </message>
     <message>
         <source>Actions applied</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменений</translation>
     </message>
 </context>
 <context>
@@ -246,19 +246,19 @@ Copyright © 2025 Smooth-E</translation>
     </message>
     <message>
         <source>Open file</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть файл</translation>
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>О приложении</translation>
     </message>
     <message>
         <source>Welcome to Audioworks!</source>
-        <translation type="unfinished"></translation>
+        <translation>Добро пожаловать в Audioworks!</translation>
     </message>
     <message>
         <source>Tap the button above to open a file and start editing</source>
-        <translation type="unfinished"></translation>
+        <translation>Нажмите кнопку выше, чтобы открыть файл и приступить к работе</translation>
     </message>
 </context>
 <context>
@@ -366,11 +366,11 @@ Copyright © 2025 Smooth-E</translation>
     <name>WelcomeCover</name>
     <message>
         <source>Welcome to Audioworks!</source>
-        <translation type="unfinished"></translation>
+        <translation>Добро пожаловать в Audioworks!</translation>
     </message>
     <message>
         <source>Open a file and start editing</source>
-        <translation type="unfinished"></translation>
+        <translation>Откройте файл для начала работы</translation>
     </message>
 </context>
 </TS>
