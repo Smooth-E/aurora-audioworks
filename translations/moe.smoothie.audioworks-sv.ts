@@ -320,18 +320,6 @@ Copyright © 2025 Smooth-E</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Source file: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Path: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Estimated output size: %1kb</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Audio tags</source>
         <translation type="unfinished">Ljudtaggar</translation>
     </message>
@@ -357,6 +345,22 @@ Copyright © 2025 Smooth-E</source>
     </message>
     <message>
         <source>Saving...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Estimated output size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1kb</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -79,7 +79,7 @@ Copyright © 2025 Smooth-E</translation>
     </message>
     <message>
         <source>Actions applied</source>
-        <translation>Изменений</translation>
+        <translation>Изменения</translation>
     </message>
 </context>
 <context>
@@ -322,18 +322,6 @@ Copyright © 2025 Smooth-E</translation>
         <translation>Информация о файле</translation>
     </message>
     <message>
-        <source>Source file: %1</source>
-        <translation>Исходный файл: %1</translation>
-    </message>
-    <message>
-        <source>Path: %1</source>
-        <translation>Путь: %1</translation>
-    </message>
-    <message>
-        <source>Estimated output size: %1kb</source>
-        <translation>Примерный размер после сохранения: %1кб</translation>
-    </message>
-    <message>
         <source>Audio tags</source>
         <translation>Мета-данные</translation>
     </message>
@@ -360,6 +348,22 @@ Copyright © 2025 Smooth-E</translation>
     <message>
         <source>Saving...</source>
         <translation>Сохранение...</translation>
+    </message>
+    <message>
+        <source>Source file</source>
+        <translation>Исходный файл</translation>
+    </message>
+    <message>
+        <source>Source location</source>
+        <translation>Локация исходного файла</translation>
+    </message>
+    <message>
+        <source>Estimated output size</source>
+        <translation>Примерный размер после сохранения</translation>
+    </message>
+    <message>
+        <source>%1kb</source>
+        <translation>%1кб</translation>
     </message>
 </context>
 <context>

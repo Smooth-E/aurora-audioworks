@@ -83,7 +83,7 @@ Dialog {
             right: parent.right 
         }
 
-        contentHeight: columnSaveAs.height
+        contentHeight: columnSaveAs.height + Theme.paddingLarge
 
         VerticalScrollDecorator { }
 
@@ -175,48 +175,32 @@ Dialog {
                 onCurrentItemChanged: checkOverwriting()
             }
 
-            Column {
-                x: Theme.horizontalPageMargin
-                width: parent.width - x * 2
+            SectionHeader {
+                text: qsTr("Output file information")
+                horizontalAlignment: Text.AlignLeft
+            }
 
-                Item {
-                    width: 1
-                    height: Theme.paddingMedium
+            InfoLabel {
+                title.text: qsTr("Source file")
+                
+                description {
+                    text: origAudioFileName
+                    wrapMode: Text.Wrap
                 }
+            }
 
-                Label {
-                    width: parent.width
-                    text: qsTr("Output file information")
+            InfoLabel {
+                title.text: qsTr("Source location")
+                
+                description {
+                    text: origAudioFolderPath
+                    wrapMode: Text.WordWrap
                 }
+            }
 
-                Label {
-                    width: parent.width
-                    font.pixelSize: Theme.fontSizeSmall
-                    opacity: Theme.opacityOverlay
-                    text: qsTr("Source file: %1").arg(origAudioFileName)
-                    truncationMode: TruncationMode.Fade
-                }
-
-                Label {
-                    width: parent.width
-                    font.pixelSize: Theme.fontSizeSmall
-                    opacity: Theme.opacityOverlay
-                    text: qsTr("Path: %1").arg(origAudioFolderPath)
-                    truncationMode: TruncationMode.Fade
-                }
-
-                Label {
-                    width: parent.width
-                    font.pixelSize: Theme.fontSizeSmall
-                    opacity: Theme.opacityOverlay
-                    text: qsTr("Estimated output size: %1kb").arg(estimatedFileSize)
-                    truncationMode: TruncationMode.Fade
-                }
-
-                Item {
-                    width: 1
-                    height: Theme.paddingMedium
-                }
+            InfoLabel {
+                title.text: qsTr("Estimated output size")
+                description.text: qsTr("%1kb").arg(estimatedFileSize)
             }
 
             Column {
@@ -239,7 +223,7 @@ Dialog {
                     width: parent.width
                     inputMethodHints: Qt.ImhNoPredictiveText
                     text: tagTitle
-                    description: qsTr("Title")
+                    label: qsTr("Title")
 
                     validator: RegExpValidator {
                         // negative list
@@ -255,7 +239,7 @@ Dialog {
                     width: parent.width
                     inputMethodHints: Qt.ImhNoPredictiveText
                     text: tagArtist
-                    description: qsTr("Artist")
+                    label: qsTr("Artist")
 
                     validator: RegExpValidator {
                         // negative list
@@ -271,7 +255,7 @@ Dialog {
                     width: parent.width
                     inputMethodHints: Qt.ImhNoPredictiveText
                     text: tagAlbum
-                    description: qsTr("Album")
+                    label: qsTr("Album")
 
                     validator: RegExpValidator {
                         // negative list
@@ -290,7 +274,7 @@ Dialog {
                         width: parent.width / 2
                         inputMethodHints: Qt.ImhDigitsOnly
                         text: tagTrack
-                        description: qsTr("Track#")
+                        label: qsTr("Track#")
                         
                         validator: IntValidator {
                             bottom: 1
@@ -306,7 +290,7 @@ Dialog {
                         width: parent.width / 2
                         inputMethodHints: Qt.ImhDigitsOnly
                         text: tagDate
-                        description: qsTr("Year")
+                        label: qsTr("Year")
 
                         validator: IntValidator {
                             bottom: 1
