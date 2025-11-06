@@ -35,7 +35,7 @@ Page {
     
     property bool warningNoPydub : false
     property bool warningNoLAME : false
-    property int undoNr : 0
+    property int undoNr: 0
     property bool finishedLoading : true
     property bool showTools : false
     property var handleSize : Theme.paddingLarge
@@ -67,6 +67,13 @@ Page {
     property var toPosPixel : 0
     property var fromPosMillisecond : Math.round(fromPosPixel * millisecondsPerPixelPython)
     property var toPosMillisecond : Math.round(toPosPixel * millisecondsPerPixelPython)
+
+    function openFilePickerFromCover() {
+        idAudioPlayer.stop()
+        pageStack.pop(mainPage, PageStackAction.Immediate)
+        pageStack.push(filePickerPage, { }, PageStackAction.Immediate)
+        appWindow.activate()
+    }
 
     function openFilePicker() {
         idAudioPlayer.stop()
@@ -147,6 +154,8 @@ Page {
     }
 
     Component.onCompleted: {
+        appWindow.editorPage = mainPage
+
         if(debug) {
             console.debug(tempAudioFolderPath)
         }

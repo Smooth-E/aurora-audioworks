@@ -72,6 +72,17 @@ Copyright © 2025 Smooth-E</translation>
     </message>
 </context>
 <context>
+    <name>EditorCover</name>
+    <message>
+        <source>Active project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Actions applied</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FirstPage</name>
     <message>
         <source>Select audio file</source>
@@ -349,6 +360,17 @@ Copyright © 2025 Smooth-E</translation>
     <message>
         <source>Saving...</source>
         <translation>Сохранение...</translation>
+    </message>
+</context>
+<context>
+    <name>WelcomeCover</name>
+    <message>
+        <source>Welcome to Audioworks!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open a file and start editing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

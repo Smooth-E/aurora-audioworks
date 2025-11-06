@@ -9,8 +9,16 @@ import "pages"
 ApplicationWindow
 {
     id: appWindow
-    
-    initialPage: Component { FirstPage { } }
-    cover: Qt.resolvedUrl("cover/CoverPage.qml")
+
+    readonly property bool isLandscape: orientation === Orientation.Landscape
+                                        || orientation === Orientation.LandscapeInverted
+
+    readonly property real coverTopPadding: isLandscape ? Theme.paddingLarge : Theme.paddingMedium
+
+    property var editorPage
+    property bool showEditorCover: editorPage && editorPage.showTools
+
+    initialPage: Qt.resolvedUrl("pages/FirstPage.qml")
     allowedOrientations: defaultAllowedOrientations
+    cover: Qt.resolvedUrl(showEditorCover ? "cover/EditorCover.qml" : "cover/WelcomeCover.qml")
 }
