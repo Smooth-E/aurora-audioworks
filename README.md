@@ -61,6 +61,8 @@
 
 ## Авторы
 
+Автор обоев на скриншотах приложения: [Merve Aydın @ unsplash.com](https://unsplash.com/photos/sliced-strawberries-bULD0lNVXOA)
+
 2020 - Tobias Planitzer <tobias.planitzer@protonmail.com> - автор приложения Audiocast для Sailfish OS
 <br>2021-2025 - Mark Washeim <blueprint@poetaster.de> - автор форка [Audiocut для Sailfish OS](https://github.com/poetaster/harbour-audiocut)
 <br>2025 - Smooth-E <smoothie@disroot.org> - автор порта приложения [Audiocut для ОС Аврора](https://github.com/Smooth-E/aurora-audioworks)
