@@ -3,7 +3,7 @@
 #
 # Add new changelog entries following the format below.
 # Add newest entries to the top of the list.
-# Separate entries from eachother with a blank line.
+# Separate entries from each other with a blank line.
 #
 # Alternatively, if your changelog is automatically generated (e.g. with
 # the git-change-log command provided with Sailfish OS SDK), create a
@@ -11,6 +11,13 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 #
+
+* Sun Nov 09 2025 Smooth-E <smoothie@disroot.org> - 1.5.2.1
+- Первая версия для ОС Аврора
+- Использованы компоненты Aurora Controls
+- Добавлена функциональная обложка
+- Улучшен вид страницы "О приложении"
+- Компоненты cpython, pyotherside, pydub и ffmpeg теперь поставляются вместе с приложением
 
 * Tue Jan 10 2023 Mark Washeim <blueprint@poetaster.de> - 1.4.3
 - [Feature] add phaser #8

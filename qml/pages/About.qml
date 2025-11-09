@@ -12,6 +12,19 @@ Page {
         id: appBar
 
         headerText: qsTr("About Audioworks")
+
+        AppBarSpacer { }
+
+        AppBarButton {
+            readonly property string version: "v1.5.2.1"
+
+            text: version
+
+            onClicked: {
+                Clipboard.text = version
+                Notices.show(qsTr("Version info copied to clipboard"), Notice.Short, Notice.Bottom)
+            }
+        }
     }
 
     Column {
@@ -121,7 +134,6 @@ Page {
             width: column.widgetWidth
             x: column.horizontalMargin
             wrapMode: Text.Wrap
-            opacity: Theme.opacityOverlay
             font.pixelSize: Theme.fontSizeSmall
             text: qsTr("This app was originally developed for Sailfish OS by people mentioned below. "
                        + "It was then ported to Aurora OS and is now maintained by Smooth-E.")
@@ -136,6 +148,7 @@ Page {
             width: column.widgetWidth
             x: column.horizontalMargin
             wrapMode: Text.Wrap
+            color: Theme.secondaryColor
             text: qsTr("Copyright © 2020 Tobias Planitzer"
                        + "\nCopyright © 2021-2023 Mark Washeim"
                        + "\nCopyright © 2025 Smooth-E")

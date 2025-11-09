@@ -49,6 +49,10 @@ Copyright © 2025 Smooth-E</source>
         <source>This app was originally developed for Sailfish OS by people mentioned below. It was then ported to Aurora OS and is now maintained by Smooth-E.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Version info copied to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Chorus</name>
