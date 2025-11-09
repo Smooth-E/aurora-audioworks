@@ -20,6 +20,7 @@
         "*.pro": "shellscript",
         "*.desktop": "shellscript",
         "*.spec": "shellscript",
-        "*.ts": "xml"
+        "*.ts": "xml",
+        "changelog.txt": "shellscript"
     }
 }
