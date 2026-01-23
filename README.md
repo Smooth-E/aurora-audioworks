@@ -4,7 +4,7 @@ Audioworks - экспериментальный аудио-редактор дл
 
 | Ссылки для скачивания |
 | --- |
-| 📦 [RuStore для ОС Аврора](https://www.rustore.ru/osaurora) <br> 🛒 [Аврора Маркет](https://aurorarepos.ru/appitem/audioworks) <br> 😼 [Скачать RPM](https://github.com/Smooth-E/aurora-audioworks/releases/latest) |
+| 📦 [RuStore для ОС Аврора](https://www.rustore.ru/osaurora) <br> 🛒 [Аврора Маркет](https://aurorarepos.ru/aurora-5/audioworks) <br> 😼 [Скачать RPM](https://github.com/Smooth-E/aurora-audioworks/releases/latest) |
 
 ## Функционал
 
