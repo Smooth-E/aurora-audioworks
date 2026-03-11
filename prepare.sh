@@ -14,6 +14,7 @@ package_name="moe.smoothie.audioworks"
 # The following vars are controlled by arguments
 select_all=1
 select_cpython=
+select_clean_cpython=
 select_pyotherside=
 select_pydub=
 select_ffmpeg=
@@ -29,6 +30,7 @@ help()
    echo "  -h   Print this help."
    echo "Selective build. If one of the below options is present, only execute selected steps."
    echo "  --build-cpython      Build cpython."
+   echo "  --clean-cpython      Remove unnecessary cpython modules."
    echo "  --build-pyotherside  Build pyotherside."
    echo "  --install-pydub      Copy pydub module files into vendor."
    echo "  --build-ffmpeg       Build FFmpeg libraries and programs."
@@ -91,6 +93,20 @@ build_cpython()
 
       # Return to project root
       cd ../../../
+}
+
+clean_cpython()
+{
+    echo Removing unneeded cpython modules
+
+    # Remove unneeded modules
+    rm -r $(pwd)/vendor/$arch/lib/python$cpython_version/test/
+    rm -r $(pwd)/vendor/$arch/lib/python$cpython_version/idlelib/ 
+    rm -r $(pwd)/vendor/$arch/lib/python$cpython_version/venv
+    rm -r $(pwd)/vendor/$arch/lib/python$cpython_version/unittest/
+    rm -r $(pwd)/vendor/$arch/lib/python$cpython_version/turtle.py 
+    rm -r $(pwd)/vendor/$arch/lib/python$cpython_version/turtledemo/
+    rm -r $(pwd)/vendor/$arch/lib/python$cpython_version/tkinter/
 }
 
 build_pyotherside()
@@ -176,7 +192,7 @@ build_lame()
     cd ../../../
 }
 
-clear()
+clear_build_folders()
 {
 	echo "Clear build folders..."
 
@@ -210,6 +226,12 @@ while [[ $# -gt 0 ]]; do
         ;;
         (--build-cpython)
             select_cpython=1
+            select_clean_cpython=1
+            select_all=0
+            shift
+        ;;
+        (--clean-cpython)
+            select_clean_cpython=1
             select_all=0
             shift
         ;;
@@ -253,8 +275,9 @@ done
 init_target_vars
 install_dependencies
 if (( select_all || select_cpython )); then build_cpython; fi
+if (( select_all || select_clean_cpython )); then clean_cpython; fi
 if (( select_all || select_pydub )); then install_pydub; fi
 if (( select_all || select_pyotherside )); then build_pyotherside; fi
 if (( select_all || select_ffmpeg )); then build_ffmpeg; fi
 if (( select_all || select_lame )); then build_lame; fi
-clear
+clear_build_folders
