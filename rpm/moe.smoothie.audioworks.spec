@@ -7,7 +7,7 @@ Name:       moe.smoothie.audioworks
 # << macros
 
 Summary:    Audiocut
-Version:    1.5.2.1
+Version:    1.5.2.2
 Release:    1
 Group:      Qt/Qt
 License:    GPLv3
