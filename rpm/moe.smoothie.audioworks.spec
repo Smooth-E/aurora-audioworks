@@ -4,14 +4,16 @@ Name:       moe.smoothie.audioworks
 %define _binary_payload w2.xzdio
 %define __requires_exclude (libpython3*|libpyside2*|libcrypt.*|libffi.*|python3dist|lib.*)
 %define __provides_exclude_from ^%{_datadir}/.*$
+
+%define _buildhost Aurora Build Engine
 # << macros
 
 Summary:    Audiocut
 Version:    1.5.2.2
 Release:    1
-Group:      Qt/Qt
+Group:      Applications/Editors
 License:    GPLv3
-URL:        https://github.com/poetaster/harbour-audiocut
+URL:        https://github.com/salty-smoothie/aurora-audioworks
 Source0:    %{name}-%{version}.tar.bz2
 Requires:   sailfishsilica-qt5 >= 0.10.9
 

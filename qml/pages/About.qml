@@ -111,7 +111,7 @@ Page {
                 name: qsTr("GitHub")
                 description: qsTr("View source code, propose changes or report problems.")
                 
-                onClicked: Qt.openUrlExternally("https://github.com/Smooth-E/aurora-audioworks")
+                onClicked: Qt.openUrlExternally("https://github.com/salty-smoothie/aurora-audioworks")
             }
 
             PreferenceButton {

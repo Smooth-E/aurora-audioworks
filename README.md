@@ -4,7 +4,7 @@ Audioworks - экспериментальный аудио-редактор дл
 
 | Ссылки для скачивания |
 | --- |
-| 📦 [RuStore для ОС Аврора](https://www.rustore.ru/osaurora) <br> 🛒 [Аврора Маркет](https://aurorarepos.ru/aurora-5/audioworks) <br> 😼 [Скачать RPM](https://github.com/Smooth-E/aurora-audioworks/releases/latest) |
+| 📦 [RuStore для ОС Аврора](https://www.rustore.ru/osaurora) <br> 🛒 [Аврора Маркет](https://aurorarepos.ru/aurora-5/audioworks) <br> 😼 [Скачать RPM](https://github.com/salty-smoothie/aurora-audioworks/releases/latest) |
 
 ## Функционал
 
@@ -40,7 +40,7 @@ Audioworks - экспериментальный аудио-редактор дл
 
 ## Поддержка и предложения
 
-Если у вас возникли проблемы или появились вопросы, создайте пост в [GitHub Issues](https://github.com/Smooth-E/aurora-audioworks/issues) этого репозитория.
+Если у вас возникли проблемы или появились вопросы, создайте пост в [GitHub Issues](https://github.com/salty-smoothie/aurora-audioworks/issues) этого репозитория.
 
 Вы также можете поддержать автора порта для ОС Аврора монетой на [Boosty](https://boosty.to/smooth-e/donate).
 
@@ -50,7 +50,7 @@ Audioworks - экспериментальный аудио-редактор дл
 
 1. Клонируйте этот репозиторий и сабмодули:
    ```sh
-   git clone https://github.com/Smooth-E/aurora-audioworks --recurse-submodules && cd aurora-audioworks
+   git clone https://github.com/salty-smoothie/aurora-audioworks --recurse-submodules && cd aurora-audioworks
    ```
 2. Примените патчи для библиотек:
    ```sh
@@ -67,6 +67,6 @@ Audioworks - экспериментальный аудио-редактор дл
 
 Автор обоев на скриншотах приложения: [Merve Aydın @ unsplash.com](https://unsplash.com/photos/sliced-strawberries-bULD0lNVXOA)
 
-2020 - Tobias Planitzer <tobias.planitzer@protonmail.com> - автор приложения Audiocast для Sailfish OS
-<br>2021-2025 - Mark Washeim <blueprint@poetaster.de> - автор форка [Audiocut для Sailfish OS](https://github.com/poetaster/harbour-audiocut)
-<br>2025 - Smooth-E <smoothie@disroot.org> - автор порта приложения [Audiocut для ОС Аврора](https://github.com/Smooth-E/aurora-audioworks)
+- Copyright (C) 2020 - Tobias Planitzer <tobias.planitzer@protonmail.com> - автор приложения Audiocast для Sailfish OS
+- Copyright (C) 2021-2025 - Mark Washeim <blueprint@poetaster.de> - автор форка [Audiocut для Sailfish OS](https://github.com/poetaster/harbour-audiocut)
+- Copyright (C) 2025 - Smooth-E <smoothie@disroot.org> - автор порта приложения [Audiocut для ОС Аврора](https://github.com/salty-smoothie/aurora-audioworks)
