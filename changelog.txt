@@ -12,6 +12,12 @@
 # - Summary of changes
 #
 
+* Sun Aug 30 2026 Smooth-E <smoothie@disroot.org> - 1.5.2.3-1
+- Изменены ссылки на исходный код приложения
+- Исправлено описание пакета
+- Используется ffmpeg n7.1.5
+- Обновлен модуль pydub
+
 * Sun Mar 15 2026 Smooth-E <smoothie@disroot.org> - 1.5.2.2
 - FFmpeg обновлен до версии n7.1.3
 - Уменьшены размер приложения и время установки

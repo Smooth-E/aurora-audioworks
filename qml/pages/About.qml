@@ -16,7 +16,7 @@ Page {
         AppBarSpacer { }
 
         AppBarButton {
-            readonly property string version: "v1.5.2.2"
+            readonly property string version: "v1.5.2.3"
 
             text: version
 

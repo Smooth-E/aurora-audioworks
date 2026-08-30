@@ -9,7 +9,7 @@ Name:       moe.smoothie.audioworks
 # << macros
 
 Summary:    Audiocut
-Version:    1.5.2.2
+Version:    1.5.2.3
 Release:    1
 Group:      Applications/Editors
 License:    GPLv3
