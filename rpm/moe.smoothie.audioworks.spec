@@ -8,7 +8,7 @@ Name:       moe.smoothie.audioworks
 %define _buildhost Aurora Build Engine
 # << macros
 
-Summary:    Audiocut
+Summary:    Audioworks
 Version:    1.5.2.3
 Release:    1
 Group:      Applications/Editors
@@ -25,7 +25,7 @@ BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  desktop-file-utils
 
 %description
-Audioworks is a small audio workbench. Trim/Splice, add echo! WIP.
+Audioworks - Экспериментальный аудио-редактор для ОС Аврора
 
 %prep
 %setup -q -n %{name}-%{version}
